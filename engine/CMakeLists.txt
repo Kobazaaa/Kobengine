@@ -57,4 +57,5 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 #--------------------------------------------------
 #    LIBRARIES
 #--------------------------------------------------
-include("${CMAKE_SOURCE_DIR}/cmake/FetchAndIncludeLibraries.cmake")
+include("../cmake/FetchAndIncludeLibraries.cmake")
+target_link_libraries(${PROJECT_NAME} PRIVATE Pompeii)

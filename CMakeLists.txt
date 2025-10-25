@@ -8,5 +8,5 @@ set(SOURCE_DIR "${CMAKE_SOURCE_DIR}/engine/src")
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+add_subdirectory("${CMAKE_SOURCE_DIR}/Pompeii")
 add_subdirectory("${CMAKE_SOURCE_DIR}/engine")
-add_subdirectory("${CMAKE_SOURCE_DIR}/renderer")
