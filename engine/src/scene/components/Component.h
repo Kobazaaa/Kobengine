@@ -4,18 +4,18 @@
 // -- Standard Library --
 #include <string>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Transform.h"
 
 // -- ImGui --
 #include "imgui.h"
 
 // -- Forward Declarations --
-namespace pompeii
+namespace kobengine
 {
 	class SceneObject;
 }
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  Component	

@@ -1,11 +1,11 @@
 #ifndef MESH_FILTER_H
 #define MESH_FILTER_H
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Mesh.h"
 #include "Component.h"
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  MeshFilter	
@@ -33,7 +33,7 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Data
 		//--------------------------------------------------
-		Mesh* pMesh{};
+		pompeii::Mesh* pMesh{};
 	};
 }
 

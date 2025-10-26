@@ -11,7 +11,7 @@
 //--------------------------------------------------
 //    Lights
 //--------------------------------------------------
-void pompeii::LightingSystem::RegisterLight(LightComponent& light)
+void kobengine::LightingSystem::RegisterLight(LightComponent& light)
 {
 	auto it = std::ranges::find(m_vRegisteredLights, &light);
 	if (it != m_vRegisteredLights.end())
@@ -26,7 +26,7 @@ void pompeii::LightingSystem::RegisterLight(LightComponent& light)
 
 	m_vPendingLights.emplace_back(&light);
 }
-void pompeii::LightingSystem::UnregisterLight(LightComponent& light)
+void kobengine::LightingSystem::UnregisterLight(LightComponent& light)
 {
 	m_UpdateLights = true;
 
@@ -50,7 +50,7 @@ void pompeii::LightingSystem::UnregisterLight(LightComponent& light)
 	});
 }
 
-void pompeii::LightingSystem::UpdateLight(LightComponent&)
+void kobengine::LightingSystem::UpdateLight(LightComponent&)
 {
 	m_UpdateLights = true;
 }
@@ -58,31 +58,31 @@ void pompeii::LightingSystem::UpdateLight(LightComponent&)
 //--------------------------------------------------
 //    Interface
 //--------------------------------------------------
-void pompeii::LightingSystem::Update()
+void kobengine::LightingSystem::Update()
 {
 	for (LightComponent* l : m_vRegisteredLights)
 	{
-		m_pRenderer->SubmitLightItem(LightItem
+		m_pRenderer->SubmitLightItem(pompeii::LightItem
 			{
 				.light = &l->lightData
 			});
 	}
 	UpdateData();
 }
-void pompeii::LightingSystem::BeginFrame()
+void kobengine::LightingSystem::BeginFrame()
 {
 	AddPendingObjects();
 }
-void pompeii::LightingSystem::EndFrame()
+void kobengine::LightingSystem::EndFrame()
 {
 }
 
 
-void pompeii::LightingSystem::SetRenderer(const std::shared_ptr<Renderer>& renderer)
+void kobengine::LightingSystem::SetRenderer(const std::shared_ptr<pompeii::Renderer>& renderer)
 {
 	m_pRenderer = renderer;
 }
-pompeii::Renderer* pompeii::LightingSystem::GetRenderer() const
+pompeii::Renderer* kobengine::LightingSystem::GetRenderer() const
 {
 	return m_pRenderer.get();
 }
@@ -91,7 +91,7 @@ pompeii::Renderer* pompeii::LightingSystem::GetRenderer() const
 //--------------------------------------------------
 //    Helpers
 //--------------------------------------------------
-void pompeii::LightingSystem::AddPendingObjects()
+void kobengine::LightingSystem::AddPendingObjects()
 {
 	if (!m_vPendingLights.empty())
 	{
@@ -100,13 +100,13 @@ void pompeii::LightingSystem::AddPendingObjects()
 		m_vPendingLights.clear();
 	}
 }
-void pompeii::LightingSystem::UpdateData()
+void kobengine::LightingSystem::UpdateData()
 {
 	if (m_UpdateLights)
 	{
 		m_UpdateLights = false;
 
-		std::vector<Light*> newLights{};
+		std::vector<pompeii::Light*> newLights{};
 		newLights.reserve(m_vRegisteredLights.size());
 		for (auto& registeredLight : m_vRegisteredLights)
 			newLights.push_back(&registeredLight->lightData);

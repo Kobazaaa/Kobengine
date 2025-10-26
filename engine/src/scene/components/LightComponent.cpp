@@ -1,11 +1,11 @@
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "LightComponent.h"
 #include "ServiceLocator.h"
 
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-pompeii::LightComponent::LightComponent(SceneObject& parent, const glm::vec3& dirPos, const glm::vec3& col, float luxLumen, LightType type)
+kobengine::LightComponent::LightComponent(SceneObject& parent, const glm::vec3& dirPos, const glm::vec3& col, float luxLumen, pompeii::LightType type)
 	: Component(parent, "LightComponent")
 	, lightData
 	{
@@ -17,12 +17,12 @@ pompeii::LightComponent::LightComponent(SceneObject& parent, const glm::vec3& di
 		.projMatrix = {}
 	}
 {
-	if (lightData.type == LightType::Point)
+	if (lightData.type == pompeii::LightType::Point)
 		GetTransform().SetPosition(lightData.dirPos);
 	lightData.CalculateLightMatrices(GetSceneObject().GetScene().GetAABB());
 	ServiceLocator::Get<LightingSystem>().RegisterLight(*this);
 }
-pompeii::LightComponent::~LightComponent()
+kobengine::LightComponent::~LightComponent()
 {
 	ServiceLocator::Get<LightingSystem>().UnregisterLight(*this);
 }
@@ -31,14 +31,14 @@ pompeii::LightComponent::~LightComponent()
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void pompeii::LightComponent::Start()
+void kobengine::LightComponent::Start()
 {
 	ServiceLocator::Get<LightingSystem>().UpdateLight(*this);
 }
-void pompeii::LightComponent::Update()
+void kobengine::LightComponent::Update()
 {
 }
-void pompeii::LightComponent::OnInspectorDraw()
+void kobengine::LightComponent::OnInspectorDraw()
 {
 	ImGui::Text("Type"); ImGui::SameLine();
 	if (ImGui::Combo("##Type", reinterpret_cast<int*>(&lightData.type), "Directional\0Point"))

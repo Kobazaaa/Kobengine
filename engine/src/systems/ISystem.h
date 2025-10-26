@@ -1,7 +1,7 @@
 #ifndef INTERFACE_SYSTEM_H
 #define INTERFACE_SYSTEM_H
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  ISystem	

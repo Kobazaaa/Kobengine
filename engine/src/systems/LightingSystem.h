@@ -5,17 +5,17 @@
 #include <vector>
 #include <memory>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "ISystem.h"
 #include "Renderer.h"
 
 // -- Forward Declarations --
-namespace pompeii
+namespace kobengine
 {
 	class LightComponent;
 }
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  Lighting System	
@@ -33,8 +33,8 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Interface
 		//--------------------------------------------------
-		void SetRenderer(const std::shared_ptr<Renderer>& renderer);
-		Renderer* GetRenderer() const;
+		void SetRenderer(const std::shared_ptr<pompeii::Renderer>& renderer);
+		pompeii::Renderer* GetRenderer() const;
 		void BeginFrame() override;
 		void Update() override;
 		void EndFrame() override;
@@ -42,7 +42,7 @@ namespace pompeii
 	private:
 		std::vector<LightComponent*> m_vPendingLights{};
 		std::vector<LightComponent*> m_vRegisteredLights{};
-		std::shared_ptr<Renderer> m_pRenderer{};
+		std::shared_ptr<pompeii::Renderer> m_pRenderer{};
 		bool m_UpdateLights{};
 
 

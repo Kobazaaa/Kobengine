@@ -5,7 +5,7 @@
 set(SOURCES
 	# main
 	"${SOURCE_DIR}/main/main.cpp"
-	"${SOURCE_DIR}/main/Kobengine.cpp"
+	"${SOURCE_DIR}/main/Application.cpp"
 
 	# helper
 	"${SOURCE_DIR}/helper/Timer.cpp"
@@ -30,6 +30,9 @@ set(SOURCES
 	# systems
 	"${SOURCE_DIR}/systems/LightingSystem.cpp"
 	"${SOURCE_DIR}/systems/RenderSystem.cpp"
+
+	# window
+	"${SOURCE_DIR}/window/WindowGLFW.cpp"
 )
 
 # Create the library
@@ -46,6 +49,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	"${SOURCE_DIR}/scene/components"
 	"${SOURCE_DIR}/scene/sceneobject"
 	"${SOURCE_DIR}/systems"
+	"${SOURCE_DIR}/window"
 )
 
 # Max Warning Level & Warnings as Errors

@@ -10,14 +10,14 @@
 #include <glm/glm.hpp>
 #include <GLFW/glfw3.h>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Component.h"
 #include "GPUCamera.h"
 
 // -- Forward Declarations --
-namespace pompeii { class Window; }
+namespace kobengine { class IWindow; }
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  CameraSettings	
@@ -39,7 +39,7 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Constructor & Destructor
 		//--------------------------------------------------
-		explicit Camera(SceneObject& parent, const CameraSettings& settings, const Window* pWindow, bool mainCam = false);
+		explicit Camera(SceneObject& parent, const CameraSettings& settings, const IWindow* pWindow, bool mainCam = false);
 
 		//--------------------------------------------------
 		//    Loop
@@ -54,8 +54,8 @@ namespace pompeii
 		// -- Settings --
 		void ChangeSettings(const CameraSettings& settings);
 		const CameraSettings& GetSettings() const;
-		const ManualExposureSettings& GetManualExposureSettings() const;
-		const AutoExposureSettings& GetAutoExposureSettings() const;
+		const pompeii::ManualExposureSettings& GetManualExposureSettings() const;
+		const pompeii::AutoExposureSettings& GetAutoExposureSettings() const;
 		bool IsAutoExposureEnabled() const;
 
 		void SetSpeed(float speed);
@@ -75,8 +75,8 @@ namespace pompeii
 		// -- Settings --
 		CameraSettings	 m_Settings						{ };
 		bool m_AutoExposure								{ true };
-		ManualExposureSettings m_ManualExposureSettings	{ };
-		AutoExposureSettings m_AutoExposureSettings		{ };
+		pompeii::ManualExposureSettings m_ManualExposureSettings	{ };
+		pompeii::AutoExposureSettings m_AutoExposureSettings		{ };
 
 		float m_Speed						{ 1.f };
 		float m_Sensitivity					{ 0.1f };
@@ -89,7 +89,7 @@ namespace pompeii
 		bool m_SettingsDirty				{ true };
 
 		// -- Window --
-		GLFWwindow* m_pWindow				{ nullptr };
+		void* m_pWindow						{ nullptr };
 	};
 }
 

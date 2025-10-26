@@ -6,10 +6,10 @@
 #include <string>
 #include <memory>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Scene.h"
 
-namespace pompeii
+namespace kobengine
 {
 	class SceneManager final
 	{

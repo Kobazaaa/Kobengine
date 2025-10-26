@@ -6,12 +6,12 @@
 #include <typeindex>
 #include <stdexcept>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "SceneManager.h"
 #include "LightingSystem.h"
 #include "RenderSystem.h"
 
-namespace pompeii
+namespace kobengine
 {
 	class ServiceLocator final
 	{

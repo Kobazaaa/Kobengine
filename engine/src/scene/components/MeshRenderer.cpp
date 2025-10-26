@@ -1,4 +1,4 @@
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "MeshRenderer.h"
 #include "ServiceLocator.h"
 
@@ -10,14 +10,14 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-pompeii::MeshRenderer::MeshRenderer(SceneObject& sceneObj, MeshFilter& filter)
+kobengine::MeshRenderer::MeshRenderer(SceneObject& sceneObj, MeshFilter& filter)
 	: Component(sceneObj, "MeshRenderer")
 {
 	pMeshFilter = &filter;
 	ServiceLocator::Get<RenderSystem>().RegisterMeshRenderer(*this);
 	GetSceneObject().GetScene().GrowAABB(pMeshFilter->pMesh->aabb);
 }
-pompeii::MeshRenderer::~MeshRenderer()
+kobengine::MeshRenderer::~MeshRenderer()
 {
 	ServiceLocator::Get<RenderSystem>().UnregisterMeshRenderer(*this);
 }
@@ -26,10 +26,10 @@ pompeii::MeshRenderer::~MeshRenderer()
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void pompeii::MeshRenderer::Start()
+void kobengine::MeshRenderer::Start()
 {
 }
-void pompeii::MeshRenderer::OnInspectorDraw()
+void kobengine::MeshRenderer::OnInspectorDraw()
 {
     if (pMeshFilter)
         ImGui::Text("Mesh Filter: %s", pMeshFilter->GetSceneObject().name.c_str());

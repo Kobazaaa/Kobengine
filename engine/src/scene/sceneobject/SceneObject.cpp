@@ -1,7 +1,7 @@
 // -- Standard Library --
 #include <string>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "SceneObject.h"
 
 // -- ImGui --
@@ -11,7 +11,7 @@
 //--------------------------------------------------
 //    Constructors and Destructors
 //--------------------------------------------------
-pompeii::SceneObject::SceneObject(Scene& scene, std::string name)
+kobengine::SceneObject::SceneObject(Scene& scene, std::string name)
 	: name(std::move(name))
 	, m_pScene(&scene)
 {}
@@ -19,19 +19,19 @@ pompeii::SceneObject::SceneObject(Scene& scene, std::string name)
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void pompeii::SceneObject::Start() const
+void kobengine::SceneObject::Start() const
 {
 	for (const auto& component : m_vComponents)
 		if (component->isActive)
 			component->Start();
 }
-void pompeii::SceneObject::Update() const
+void kobengine::SceneObject::Update() const
 {
 	for (const auto& component : m_vComponents)
 		if (component->isActive)
 			component->Update();
 }
-void pompeii::SceneObject::OnInspectorDraw()
+void kobengine::SceneObject::OnInspectorDraw()
 {
 	// -- Info --
 	ImGui::Text("Name:");
@@ -101,7 +101,7 @@ void pompeii::SceneObject::OnInspectorDraw()
 //--------------------------------------------------
 //    Data
 //--------------------------------------------------
-pompeii::Scene& pompeii::SceneObject::GetScene() const
+kobengine::Scene& kobengine::SceneObject::GetScene() const
 {
 	return *m_pScene;
 }
@@ -109,22 +109,22 @@ pompeii::Scene& pompeii::SceneObject::GetScene() const
 //--------------------------------------------------
 //    Flags
 //--------------------------------------------------
-bool pompeii::SceneObject::IsFlaggedForDestruction() const
+bool kobengine::SceneObject::IsFlaggedForDestruction() const
 {
 	return m_DeletionFlag;
 }
-void pompeii::SceneObject::Destroy()
+void kobengine::SceneObject::Destroy()
 {
 	m_DeletionFlag = true;
 	for (const auto& child : transform->GetAllChildren())
 		child->GetSceneObject()->Destroy();
 }
 
-bool pompeii::SceneObject::IsActive() const
+bool kobengine::SceneObject::IsActive() const
 {
 	return m_IsActive;
 }
-void pompeii::SceneObject::SetActive(bool active)
+void kobengine::SceneObject::SetActive(bool active)
 {
 	m_IsActive = active;
 	for (auto& child : transform->GetAllChildren())
@@ -137,7 +137,7 @@ void pompeii::SceneObject::SetActive(bool active)
 //--------------------------------------------------
 
 // -- Component --
-void pompeii::SceneObject::CleanupDeletedComponents()
+void kobengine::SceneObject::CleanupDeletedComponents()
 {
 	std::erase_if(m_vComponents,
 	              [](const std::unique_ptr<Component>& component)

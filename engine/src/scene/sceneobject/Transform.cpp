@@ -1,19 +1,19 @@
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Transform.h"
 
 //--------------------------------------------------
 //    Constructor
 //--------------------------------------------------
-pompeii::Transform::Transform(SceneObject* pOwner)
+kobengine::Transform::Transform(SceneObject* pOwner)
 	: m_pSceneObject{ pOwner }
 {}
 
 //--------------------------------------------------
 //    Parent-Child
 //--------------------------------------------------
-pompeii::SceneObject* pompeii::Transform::GetSceneObject() const { return m_pSceneObject; }
-pompeii::Transform* pompeii::Transform::GetParent() const { return m_pParent; }
-void pompeii::Transform::SetParent(Transform* parent, bool keepWorldPosition)
+kobengine::SceneObject* kobengine::Transform::GetSceneObject() const { return m_pSceneObject; }
+kobengine::Transform* kobengine::Transform::GetParent() const { return m_pParent; }
+void kobengine::Transform::SetParent(Transform* parent, bool keepWorldPosition)
 {
 	// avoid unnecessary reparenting
 	if (IsChild(parent) || parent == this || m_pParent == parent)
@@ -41,27 +41,27 @@ void pompeii::Transform::SetParent(Transform* parent, bool keepWorldPosition)
 	if (m_pParent) m_pParent->AddChild(this);
 }
 
-bool pompeii::Transform::IsChild(const Transform* child) const
+bool kobengine::Transform::IsChild(const Transform* child) const
 {
 	return std::ranges::find(m_vChildren, child) != m_vChildren.end();
 }
-int pompeii::Transform::GetChildCount() const
+int kobengine::Transform::GetChildCount() const
 {
 	return static_cast<int>(m_vChildren.size());
 }
-const std::vector<pompeii::Transform*>& pompeii::Transform::GetAllChildren() const
+const std::vector<kobengine::Transform*>& kobengine::Transform::GetAllChildren() const
 {
 	return m_vChildren;
 }
 
-void pompeii::Transform::AddChild(Transform* child)
+void kobengine::Transform::AddChild(Transform* child)
 {
 	// If the child already exists in the container, don't add it again!
 	if (std::ranges::find(m_vChildren, child) != m_vChildren.end())
 		return;
 	m_vChildren.push_back(child);
 }
-void pompeii::Transform::RemoveChild(const Transform* child)
+void kobengine::Transform::RemoveChild(const Transform* child)
 {
 	std::erase_if(m_vChildren, [&](const Transform* pChild)
 		{
@@ -74,15 +74,15 @@ void pompeii::Transform::RemoveChild(const Transform* child)
 //    Transformation
 //--------------------------------------------------
 // -- World --
-const glm::vec3& pompeii::Transform::GetPosition()						{ if (m_DirtyPosition) RecalculatePosition(); return m_Position; }
-const glm::vec3& pompeii::Transform::GetEulerAngles()					{ if (m_DirtyEulerAngles) RecalculateEulerAngles(); return m_EulerAngles; }
-const glm::vec3& pompeii::Transform::GetScale()							{ if (m_DirtyScale) RecalculateScale(); return m_Scale; }
+const glm::vec3& kobengine::Transform::GetPosition()					{ if (m_DirtyPosition) RecalculatePosition(); return m_Position; }
+const glm::vec3& kobengine::Transform::GetEulerAngles()					{ if (m_DirtyEulerAngles) RecalculateEulerAngles(); return m_EulerAngles; }
+const glm::vec3& kobengine::Transform::GetScale()						{ if (m_DirtyScale) RecalculateScale(); return m_Scale; }
 
-const glm::vec3& pompeii::Transform::GetForward()						{ if (m_DirtyEulerAngles || m_DirtyScale) RecalculateMatrix(); return m_Forward; }
-const glm::vec3& pompeii::Transform::GetRight()							{ if (m_DirtyEulerAngles || m_DirtyScale) RecalculateMatrix(); return m_Right; }
-const glm::vec3& pompeii::Transform::GetUp()							{ if (m_DirtyEulerAngles || m_DirtyScale) RecalculateMatrix(); return m_Up; }
+const glm::vec3& kobengine::Transform::GetForward()						{ if (m_DirtyEulerAngles || m_DirtyScale) RecalculateMatrix(); return m_Forward; }
+const glm::vec3& kobengine::Transform::GetRight()						{ if (m_DirtyEulerAngles || m_DirtyScale) RecalculateMatrix(); return m_Right; }
+const glm::vec3& kobengine::Transform::GetUp()							{ if (m_DirtyEulerAngles || m_DirtyScale) RecalculateMatrix(); return m_Up; }
 
-void pompeii::Transform::SetPosition(const glm::vec3& pos)
+void kobengine::Transform::SetPosition(const glm::vec3& pos)
 {
 	if (m_pParent)
 	{
@@ -97,7 +97,7 @@ void pompeii::Transform::SetPosition(const glm::vec3& pos)
 	}
 	SetPositionDirty();
 }
-void pompeii::Transform::SetEulerAngles(const glm::vec3& euler)
+void kobengine::Transform::SetEulerAngles(const glm::vec3& euler)
 {
 	if (m_pParent)
 	{
@@ -114,7 +114,7 @@ void pompeii::Transform::SetEulerAngles(const glm::vec3& euler)
 	}
 	SetEulerAnglesDirty();
 }
-void pompeii::Transform::SetScale(const glm::vec3& scale)
+void kobengine::Transform::SetScale(const glm::vec3& scale)
 {
 	if (m_pParent)
 	{
@@ -131,11 +131,11 @@ void pompeii::Transform::SetScale(const glm::vec3& scale)
 	SetScaleDirty();
 }
 
-void pompeii::Transform::Translate(const glm::vec3& translation)		{ SetPosition(GetPosition() + translation); }
-void pompeii::Transform::Rotate(const glm::vec3& rotation)				{ SetEulerAngles(GetEulerAngles() + rotation); }
-void pompeii::Transform::Scale(const glm::vec3& scale)					{ SetScale(GetScale() + scale); }
+void kobengine::Transform::Translate(const glm::vec3& translation)			{ SetPosition(GetPosition() + translation); }
+void kobengine::Transform::Rotate(const glm::vec3& rotation)				{ SetEulerAngles(GetEulerAngles() + rotation); }
+void kobengine::Transform::Scale(const glm::vec3& scale)					{ SetScale(GetScale() + scale); }
 
-const glm::mat4& pompeii::Transform::GetMatrix()
+const glm::mat4& kobengine::Transform::GetMatrix()
 {
 	if (m_DirtyPosition || m_DirtyEulerAngles || m_DirtyScale)
 		RecalculateMatrix();
@@ -143,45 +143,45 @@ const glm::mat4& pompeii::Transform::GetMatrix()
 }
 
 // -- Local --
-const glm::vec3& pompeii::Transform::GetLocalPosition()		const		{ return m_LocalPosition; }
-const glm::vec3& pompeii::Transform::GetLocalEulerAngles()	const		{ return m_LocalEulerAngles; }
-const glm::vec3& pompeii::Transform::GetLocalScale()		const		{ return m_LocalScale; }
+const glm::vec3& kobengine::Transform::GetLocalPosition()		const		{ return m_LocalPosition; }
+const glm::vec3& kobengine::Transform::GetLocalEulerAngles()	const		{ return m_LocalEulerAngles; }
+const glm::vec3& kobengine::Transform::GetLocalScale()			const		{ return m_LocalScale; }
 
-void pompeii::Transform::SetLocalPosition(const glm::vec3& pos)			{ m_LocalPosition = pos; SetPositionDirty(); }
-void pompeii::Transform::SetLocalEulerAngles(const glm::vec3& euler)	{ m_LocalEulerAngles = euler; SetEulerAnglesDirty(); }
-void pompeii::Transform::SetLocalScale(const glm::vec3& scale)			{ m_LocalScale = scale; SetScaleDirty(); }
+void kobengine::Transform::SetLocalPosition(const glm::vec3& pos)			{ m_LocalPosition = pos; SetPositionDirty(); }
+void kobengine::Transform::SetLocalEulerAngles(const glm::vec3& euler)		{ m_LocalEulerAngles = euler; SetEulerAnglesDirty(); }
+void kobengine::Transform::SetLocalScale(const glm::vec3& scale)			{ m_LocalScale = scale; SetScaleDirty(); }
 
-void pompeii::Transform::TranslateLocal(const glm::vec3& translation)	{ SetLocalPosition(m_LocalPosition + translation); }
-void pompeii::Transform::RotateLocal(const glm::vec3& rotation)			{ SetLocalEulerAngles(m_LocalEulerAngles + rotation); }
-void pompeii::Transform::ScaleLocal(const glm::vec3& scale)				{ SetLocalScale(m_LocalScale + scale); }
+void kobengine::Transform::TranslateLocal(const glm::vec3& translation)		{ SetLocalPosition(m_LocalPosition + translation); }
+void kobengine::Transform::RotateLocal(const glm::vec3& rotation)			{ SetLocalEulerAngles(m_LocalEulerAngles + rotation); }
+void kobengine::Transform::ScaleLocal(const glm::vec3& scale)				{ SetLocalScale(m_LocalScale + scale); }
 
 
-void pompeii::Transform::SetTransformDirty()
+void kobengine::Transform::SetTransformDirty()
 {
 	SetPositionDirty();
 	SetEulerAnglesDirty();
 	SetScaleDirty();
 }
-void pompeii::Transform::SetPositionDirty()
+void kobengine::Transform::SetPositionDirty()
 {
 	m_DirtyPosition = true;
 	for (const auto& child : m_vChildren)
 		child->SetPositionDirty();
 }
-void pompeii::Transform::SetEulerAnglesDirty()
+void kobengine::Transform::SetEulerAnglesDirty()
 {
 	m_DirtyEulerAngles = true;
 	for (const auto& child : m_vChildren)
 		child->SetEulerAnglesDirty();
 }
-void pompeii::Transform::SetScaleDirty()
+void kobengine::Transform::SetScaleDirty()
 {
 	m_DirtyScale = true;
 	for (const auto& child : m_vChildren)
 		child->SetScaleDirty();
 }
 
-void pompeii::Transform::DecomposeMatrixToLocals(const glm::mat4& mat)
+void kobengine::Transform::DecomposeMatrixToLocals(const glm::mat4& mat)
 {
 	glm::vec3 scale;
 	glm::quat orientation;
@@ -197,7 +197,7 @@ void pompeii::Transform::DecomposeMatrixToLocals(const glm::mat4& mat)
 		SetLocalEulerAngles(euler);
 	}
 }
-void pompeii::Transform::RecalculateMatrix()
+void kobengine::Transform::RecalculateMatrix()
 {
 	RecalculatePosition();
 	RecalculateEulerAngles();
@@ -213,21 +213,21 @@ void pompeii::Transform::RecalculateMatrix()
 	m_Up			= glm::normalize(glm::vec3(m_WorldMatrix[1]));
 	m_Forward		= glm::normalize(glm::vec3(m_WorldMatrix[2]));
 }
-void pompeii::Transform::RecalculatePosition()
+void kobengine::Transform::RecalculatePosition()
 {
 	if (m_pParent)
 		m_Position = glm::vec3(m_pParent->GetMatrix() * glm::vec4(m_LocalPosition, 1.0f));
 	else m_Position = m_LocalPosition;
 	m_DirtyPosition = false;
 }
-void pompeii::Transform::RecalculateEulerAngles()
+void kobengine::Transform::RecalculateEulerAngles()
 {
 	if (m_pParent)
 		m_EulerAngles = glm::degrees(glm::eulerAngles(glm::quat(glm::radians(m_pParent->GetEulerAngles())) * glm::quat(glm::radians(m_LocalEulerAngles))));
 	else m_EulerAngles = m_LocalEulerAngles;
 	m_DirtyEulerAngles = false;
 }
-void pompeii::Transform::RecalculateScale()
+void kobengine::Transform::RecalculateScale()
 {
 	if (m_pParent)
 		m_Scale = m_pParent->GetScale() * m_LocalScale;

@@ -13,12 +13,12 @@
 #include <vector>
 
 // -- Forward Declarations --
-namespace pompeii
+namespace kobengine
 {
 	class SceneObject;
 }
 
-namespace pompeii
+namespace kobengine
 {
 	class Transform final
 	{

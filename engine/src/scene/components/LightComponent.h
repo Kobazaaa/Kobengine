@@ -4,7 +4,7 @@
 // -- Math Includes --
 #include "glm/glm.hpp"
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Component.h"
 #include "Light.h"
 
@@ -16,7 +16,7 @@ namespace pompeii
 	class Scene;
 }
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  Light Component	
@@ -27,7 +27,7 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Constructor & Destructor
 		//--------------------------------------------------
-		LightComponent(SceneObject& parent, const glm::vec3& dirPos, const glm::vec3& col, float luxLumen, LightType type);
+		LightComponent(SceneObject& parent, const glm::vec3& dirPos, const glm::vec3& col, float luxLumen, pompeii::LightType type);
 		~LightComponent() override;
 
 		LightComponent(const LightComponent& other) = delete;
@@ -46,7 +46,7 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Accessors & Mutators
 		//--------------------------------------------------
-		Light lightData{};
+		pompeii::Light lightData{};
 	};
 }
 

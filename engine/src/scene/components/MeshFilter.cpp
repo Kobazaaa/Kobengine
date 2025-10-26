@@ -1,4 +1,4 @@
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "MeshFilter.h"
 #include "AssetManager.h"
 #include "ServiceLocator.h"
@@ -13,10 +13,10 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-pompeii::MeshFilter::MeshFilter(SceneObject& sceneObj)
+kobengine::MeshFilter::MeshFilter(SceneObject& sceneObj)
 	: Component(sceneObj, "MeshFilter")
 {}
-pompeii::MeshFilter::~MeshFilter()
+kobengine::MeshFilter::~MeshFilter()
 {
 	ServiceLocator::Get<AssetManager>().UnloadMesh(pMesh);
 }
@@ -25,9 +25,9 @@ pompeii::MeshFilter::~MeshFilter()
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void pompeii::MeshFilter::Start()
+void kobengine::MeshFilter::Start()
 {
 }
-void pompeii::MeshFilter::OnInspectorDraw()
+void kobengine::MeshFilter::OnInspectorDraw()
 {
 }

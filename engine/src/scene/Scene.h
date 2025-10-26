@@ -9,11 +9,11 @@
 // -- Standard Library --
 #include <memory>
 
-// -- Pom Includes --
+// -- Kobengine Includes --
 #include "SceneObject.h"
 #include "Shapes.h"
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  Base Scene	
@@ -49,8 +49,8 @@ namespace pompeii
 		std::string name{ "EmptyScene" };
 		std::vector<SceneObject*> GetObjectsByName(const std::string& objectName) const;
 		std::vector<SceneObject*> GetAllObjects() const;
-		const AABB& GetAABB() const;
-		void GrowAABB(const AABB& aabb);
+		const pompeii::AABB& GetAABB() const;
+		void GrowAABB(const pompeii::AABB& aabb);
 
 	private:
 		void CleanupDeletedObjects();
@@ -58,7 +58,7 @@ namespace pompeii
 
 		std::vector<std::unique_ptr<SceneObject>> m_vObjects{};
 		std::vector<std::unique_ptr<SceneObject>> m_vPendingObjects{};
-		AABB m_AABB;
+		pompeii::AABB m_AABB;
 	};
 }
 #endif // SCENE_H

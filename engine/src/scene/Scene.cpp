@@ -1,4 +1,4 @@
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Scene.h"
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -8,7 +8,7 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-pompeii::Scene::Scene(std::string sceneName)
+kobengine::Scene::Scene(std::string sceneName)
 	: name(std::move(sceneName))
 {}
 
@@ -16,7 +16,7 @@ pompeii::Scene::Scene(std::string sceneName)
 //--------------------------------------------------
 //    Adding & Removing SceneObjects
 //--------------------------------------------------
-pompeii::SceneObject& pompeii::Scene::AddEmpty(const std::string& sceneName)
+kobengine::SceneObject& kobengine::Scene::AddEmpty(const std::string& sceneName)
 {
 	m_vPendingObjects.emplace_back(std::make_unique<SceneObject>(*this, sceneName));
 	return *m_vPendingObjects.back();
@@ -25,14 +25,14 @@ pompeii::SceneObject& pompeii::Scene::AddEmpty(const std::string& sceneName)
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void pompeii::Scene::Start() const
+void kobengine::Scene::Start() const
 {
 	for (auto& object : m_vObjects)
 	{
 		object->Start();
 	}
 }
-void pompeii::Scene::Update()
+void kobengine::Scene::Update()
 {
 	for (auto& object : m_vObjects)
 	{
@@ -47,7 +47,7 @@ void pompeii::Scene::Update()
 //--------------------------------------------------
 //    Accessors
 //--------------------------------------------------
-std::vector<pompeii::SceneObject*> pompeii::Scene::GetObjectsByName(const std::string& objectName) const
+std::vector<kobengine::SceneObject*> kobengine::Scene::GetObjectsByName(const std::string& objectName) const
 {
 	//todo Preferably get rid of string comparisons
 	std::vector<SceneObject*> result{};
@@ -63,7 +63,7 @@ std::vector<pompeii::SceneObject*> pompeii::Scene::GetObjectsByName(const std::s
 	}
 	return result;
 }
-std::vector<pompeii::SceneObject*> pompeii::Scene::GetAllObjects() const
+std::vector<kobengine::SceneObject*> kobengine::Scene::GetAllObjects() const
 {
 	std::vector<SceneObject*> result{};
 	result.reserve(m_vObjects.size() + m_vPendingObjects.size());
@@ -74,16 +74,16 @@ std::vector<pompeii::SceneObject*> pompeii::Scene::GetAllObjects() const
 	return result;
 }
 
-const pompeii::AABB& pompeii::Scene::GetAABB() const
+const pompeii::AABB& kobengine::Scene::GetAABB() const
 {
 	return m_AABB;
 }
-void pompeii::Scene::GrowAABB(const AABB& aabb)
+void kobengine::Scene::GrowAABB(const pompeii::AABB& aabb)
 {
 	m_AABB.GrowToInclude(aabb);
 }
 
-void pompeii::Scene::CleanupDeletedObjects()
+void kobengine::Scene::CleanupDeletedObjects()
 {
 	std::erase_if(m_vObjects,
 		[](const std::unique_ptr<SceneObject>& object)
@@ -91,7 +91,7 @@ void pompeii::Scene::CleanupDeletedObjects()
 			return object->IsFlaggedForDestruction();
 		});
 }
-void pompeii::Scene::AddPendingObjects()
+void kobengine::Scene::AddPendingObjects()
 {
 	// separate for loops to ensure that all objects in m_vPendingObjects are in a valid state, since it's possible to query
 	// m_vPendingObjects in the start function of SceneObjects (e.g. asking for all SO with tag or name).

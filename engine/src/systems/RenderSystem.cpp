@@ -9,7 +9,7 @@
 //--------------------------------------------------
 //    Models
 //--------------------------------------------------
-void pompeii::RenderSystem::RegisterMeshRenderer(MeshRenderer& model)
+void kobengine::RenderSystem::RegisterMeshRenderer(MeshRenderer& model)
 {
 	auto it = std::ranges::find(m_vRegisteredModels, &model);
 	if (it != m_vRegisteredModels.end())
@@ -21,7 +21,7 @@ void pompeii::RenderSystem::RegisterMeshRenderer(MeshRenderer& model)
 	m_vPendingModels.emplace_back(&model);
 	m_UpdateModels = true;
 }
-void pompeii::RenderSystem::UnregisterMeshRenderer(const MeshRenderer& model)
+void kobengine::RenderSystem::UnregisterMeshRenderer(const MeshRenderer& model)
 {
 	std::erase_if(m_vRegisteredModels, [&](const MeshRenderer* pModel)
 	{
@@ -42,11 +42,11 @@ void pompeii::RenderSystem::UnregisterMeshRenderer(const MeshRenderer& model)
 //--------------------------------------------------
 //    Camera
 //--------------------------------------------------
-pompeii::Camera* pompeii::RenderSystem::GetMainCamera() const
+kobengine::Camera* kobengine::RenderSystem::GetMainCamera() const
 {
 	return m_pMainCamera;
 }
-void pompeii::RenderSystem::SetMainCamera(Camera& camera)
+void kobengine::RenderSystem::SetMainCamera(Camera& camera)
 {
 	m_pMainCamera = &camera;
 }
@@ -54,18 +54,18 @@ void pompeii::RenderSystem::SetMainCamera(Camera& camera)
 //--------------------------------------------------
 //    Interface
 //--------------------------------------------------
-void pompeii::RenderSystem::Update()
+void kobengine::RenderSystem::Update()
 {
 	for (auto& visibleModel : m_vVisibleModels)
 	{
 		if (visibleModel->pMeshFilter)
-			m_pRenderer->SubmitRenderItem(RenderItem
+			m_pRenderer->SubmitRenderItem(pompeii::RenderItem
 				{
 					.mesh = visibleModel->pMeshFilter->pMesh,
 					.transform = visibleModel->GetTransform().GetMatrix()
 				});
 	}
-	m_pRenderer->SetCamera(CameraData{
+	m_pRenderer->SetCamera(pompeii::CameraData{
 			.view = m_pMainCamera->GetViewMatrix(),
 			.proj = m_pMainCamera->GetProjectionMatrix(),
 			.manualExposureSettings = m_pMainCamera->GetManualExposureSettings(),
@@ -74,21 +74,21 @@ void pompeii::RenderSystem::Update()
 		});
 	UpdateData();
 }
-void pompeii::RenderSystem::BeginFrame()
+void kobengine::RenderSystem::BeginFrame()
 {
 	AddPendingObjects();
 	FrustumCull();
 }
-void pompeii::RenderSystem::EndFrame()
+void kobengine::RenderSystem::EndFrame()
 {
 	m_vVisibleModels.clear();
 }
 
-void pompeii::RenderSystem::SetRenderer(const std::shared_ptr<Renderer>& renderer)
+void kobengine::RenderSystem::SetRenderer(const std::shared_ptr<pompeii::Renderer>& renderer)
 {
 	m_pRenderer = renderer;
 }
-pompeii::Renderer* pompeii::RenderSystem::GetRenderer() const
+pompeii::Renderer* kobengine::RenderSystem::GetRenderer() const
 {
 	return m_pRenderer.get();
 }
@@ -96,14 +96,14 @@ pompeii::Renderer* pompeii::RenderSystem::GetRenderer() const
 //--------------------------------------------------
 //    Helpers
 //--------------------------------------------------
-void pompeii::RenderSystem::FrustumCull()
+void kobengine::RenderSystem::FrustumCull()
 {
 	for (MeshRenderer* registeredModel : m_vRegisteredModels)
 	{
 		m_vVisibleModels.push_back(registeredModel);
 	}
 }
-void pompeii::RenderSystem::AddPendingObjects()
+void kobengine::RenderSystem::AddPendingObjects()
 {
 	if (!m_vPendingModels.empty())
 	{
@@ -112,13 +112,13 @@ void pompeii::RenderSystem::AddPendingObjects()
 		m_vPendingModels.clear();
 	}
 }
-void pompeii::RenderSystem::UpdateData()
+void kobengine::RenderSystem::UpdateData()
 {
 	if (m_UpdateModels)
 	{
 		m_UpdateModels = false;
 
-		std::vector<Image*> newTextures{};
+		std::vector<pompeii::Image*> newTextures{};
 		for (const auto& registeredModel : m_vRegisteredModels)
 			if (registeredModel->pMeshFilter)
 				for (auto& image : registeredModel->pMeshFilter->pMesh->images)

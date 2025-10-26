@@ -6,11 +6,11 @@
 #include <memory>
 #include <string>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Mesh.h" 
 #include "Renderer.h"
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  Asset Manager	
@@ -21,21 +21,21 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Renderer
 		//--------------------------------------------------
-		void SetRenderer(const std::shared_ptr<Renderer>& renderer);
-		Renderer* GetRenderer() const;
+		void SetRenderer(const std::shared_ptr<pompeii::Renderer>& renderer);
+		pompeii::Renderer* GetRenderer() const;
 
 		//--------------------------------------------------
 		//    Assets
 		//--------------------------------------------------
-		Mesh* LoadMesh(const std::string& path);
-		Mesh* GetMesh(const std::string& path);
-		void UnloadMesh(const Mesh* pMesh);
+		pompeii::Mesh* LoadMesh(const std::string& path);
+		pompeii::Mesh* GetMesh(const std::string& path);
+		void UnloadMesh(const pompeii::Mesh* pMesh);
 		void UnloadAll();
-		std::vector<Mesh*> GetAllMeshes() const;
+		std::vector<pompeii::Mesh*> GetAllMeshes() const;
 
 	private:
-		std::unordered_map<std::string, std::unique_ptr<Mesh>> m_vMeshRegistry{};
-		std::shared_ptr<Renderer> m_pRenderer{};
+		std::unordered_map<std::string, std::unique_ptr<pompeii::Mesh>> m_vMeshRegistry{};
+		std::shared_ptr<pompeii::Renderer> m_pRenderer{};
 	};
 }
 

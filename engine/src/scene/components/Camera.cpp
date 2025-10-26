@@ -5,11 +5,11 @@
 // -- Keyboard --
 #include "GLFW/glfw3.h"
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Camera.h"
 #include "ServiceLocator.h"
 #include "SceneObject.h"
-#include "Window.h"
+#include "IWindow.h"
 #include "Timer.h"
 
 
@@ -20,12 +20,12 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-pompeii::Camera::Camera(SceneObject& parent, const CameraSettings& settings, const Window* pWindow, bool mainCam)
+kobengine::Camera::Camera(SceneObject& parent, const CameraSettings& settings, const IWindow* pWindow, bool mainCam)
 	: Component(parent, "Camera")
 	, m_Settings(settings)
 	, m_ManualExposureSettings{ .aperture = 16.f, .shutterSpeed = 1.f / 100.f, .iso = 100.f}
 	, m_AutoExposureSettings{ .minLogLum = -8.f, .logLumRange = 12.f }
-	, m_pWindow(pWindow->GetHandle())
+	, m_pWindow(pWindow->GetNativeHandle())
 {
 	if (mainCam)
 		ServiceLocator::Get<RenderSystem>().SetMainCamera(*this);
@@ -36,9 +36,9 @@ pompeii::Camera::Camera(SceneObject& parent, const CameraSettings& settings, con
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void pompeii::Camera::Start()
+void kobengine::Camera::Start()
 {}
-void pompeii::Camera::Update()
+void kobengine::Camera::Update()
 {
 	if (!m_pWindow)
 		std::cerr << "Window not valid for Camera!\n";
@@ -49,7 +49,7 @@ void pompeii::Camera::Update()
 	if (!io.WantCaptureKeyboard)
 		HandleMovement();
 }
-void pompeii::Camera::OnInspectorDraw()
+void kobengine::Camera::OnInspectorDraw()
 {
 	// --- Movement ---
 	ImGui::SeparatorText("Movement");
@@ -84,22 +84,22 @@ void pompeii::Camera::OnInspectorDraw()
 //    Accessors & Mutators
 //--------------------------------------------------
 // -- Settings --
-void pompeii::Camera::ChangeSettings(const CameraSettings& settings) { m_Settings = settings; m_SettingsDirty = true; }
-const pompeii::CameraSettings& pompeii::Camera::GetSettings() const	{ return m_Settings; }
+void kobengine::Camera::ChangeSettings(const CameraSettings& settings) { m_Settings = settings; m_SettingsDirty = true; }
+const kobengine::CameraSettings& kobengine::Camera::GetSettings() const	{ return m_Settings; }
 
-const pompeii::ManualExposureSettings& pompeii::Camera::GetManualExposureSettings() const { return m_ManualExposureSettings; }
-const pompeii::AutoExposureSettings& pompeii::Camera::GetAutoExposureSettings() const { return m_AutoExposureSettings; }
-bool pompeii::Camera::IsAutoExposureEnabled() const { return m_AutoExposure; }
+const pompeii::ManualExposureSettings& kobengine::Camera::GetManualExposureSettings() const { return m_ManualExposureSettings; }
+const pompeii::AutoExposureSettings& kobengine::Camera::GetAutoExposureSettings() const { return m_AutoExposureSettings; }
+bool kobengine::Camera::IsAutoExposureEnabled() const { return m_AutoExposure; }
 
-void pompeii::Camera::SetSpeed(float speed) { m_Speed = speed; }
-void pompeii::Camera::SetSensitivity(float sensitivity) { m_Sensitivity = sensitivity; }
+void kobengine::Camera::SetSpeed(float speed) { m_Speed = speed; }
+void kobengine::Camera::SetSensitivity(float sensitivity) { m_Sensitivity = sensitivity; }
 
 // -- Matrices --
-glm::mat4 pompeii::Camera::GetViewMatrix() const
+glm::mat4 kobengine::Camera::GetViewMatrix() const
 {
 	return glm::inverse(GetTransform().GetMatrix());
 }
-glm::mat4 pompeii::Camera::GetProjectionMatrix()
+glm::mat4 kobengine::Camera::GetProjectionMatrix()
 {
 	if (m_SettingsDirty)
 	{
@@ -115,43 +115,45 @@ glm::mat4 pompeii::Camera::GetProjectionMatrix()
 //--------------------------------------------------
 //    Helpers
 //--------------------------------------------------
-void pompeii::Camera::HandleMovement() const
+void kobengine::Camera::HandleMovement() const
 {
 	float speed = m_Speed * Timer::GetDeltaSeconds();
-	speed *= glfwGetKey(m_pWindow, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ? 4.f : 1.f;
+	auto window = static_cast<GLFWwindow*>(m_pWindow);
+	speed *= glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS ? 4.f : 1.f;
 
 
-	if (glfwGetKey(m_pWindow, GLFW_KEY_W) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
 		GetTransform().Translate(GetTransform().GetForward() * speed);
 	}
-	if (glfwGetKey(m_pWindow, GLFW_KEY_S) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
 		GetTransform().Translate(-GetTransform().GetForward() * speed);
 	}
-	if (glfwGetKey(m_pWindow, GLFW_KEY_A) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
 		GetTransform().Translate(-GetTransform().GetRight() * speed);
 	}
-	if (glfwGetKey(m_pWindow, GLFW_KEY_D) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
 		GetTransform().Translate(GetTransform().GetRight() * speed);
 	}
-	if (glfwGetKey(m_pWindow, GLFW_KEY_E) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 	{
 		GetTransform().Translate(glm::vec3(0, 1, 0) * speed);
 	}
-	if (glfwGetKey(m_pWindow, GLFW_KEY_Q) == GLFW_PRESS)
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
 	{
 		GetTransform().Translate(glm::vec3(0, -1, 0) * speed);
 	}
 }
-void pompeii::Camera::HandleAim()
+void kobengine::Camera::HandleAim()
 {
-	if (glfwGetMouseButton(m_pWindow, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+	auto window = static_cast<GLFWwindow*>(m_pWindow);
+	if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
 	{
 		double x, y;
-		glfwGetCursorPos(m_pWindow, &x, &y);
+		glfwGetCursorPos(window, &x, &y);
 
 		if (!m_IsDragging)
 		{

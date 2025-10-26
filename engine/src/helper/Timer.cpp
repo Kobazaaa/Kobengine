@@ -1,7 +1,7 @@
 // -- Standard Library --
 #include <iostream>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Timer.h"
 #include "ConsoleTextSettings.h"
 
@@ -13,14 +13,14 @@
 //--------------------------------------------------
 //    Behavioural
 //--------------------------------------------------
-void pompeii::Timer::Start()
+void kobengine::Timer::Start()
 {
 	m_LastTimePoint = std::chrono::high_resolution_clock::now();
 	m_CurrentTimePoint = std::chrono::high_resolution_clock::now();
 	m_DeltaTimeSeconds = 0;
 	m_SleepTimeSeconds = 0;
 }
-void pompeii::Timer::Update()
+void kobengine::Timer::Update()
 {
 	++m_Ticks;
 
@@ -30,11 +30,11 @@ void pompeii::Timer::Update()
 	m_TotalTimeSeconds += m_DeltaTimeSeconds;
 }
 
-void pompeii::Timer::StartBenchmark()
+void kobengine::Timer::StartBenchmark()
 {
 	m_BenchmarkStart = std::chrono::high_resolution_clock::now();
 }
-float pompeii::Timer::EndBenchmark(bool printResults, const std::string& txt)
+float kobengine::Timer::EndBenchmark(bool printResults, const std::string& txt)
 {
 	m_BenchmarkEnd = std::chrono::high_resolution_clock::now();
 	const float delta = std::chrono::duration<float, std::milli>(m_BenchmarkEnd - m_BenchmarkStart).count();
@@ -51,19 +51,19 @@ float pompeii::Timer::EndBenchmark(bool printResults, const std::string& txt)
 //--------------------------------------------------
 //    Accessors
 //--------------------------------------------------
-float pompeii::Timer::GetDeltaSeconds()
+float kobengine::Timer::GetDeltaSeconds()
 {
 	return m_DeltaTimeSeconds;
 }
-float pompeii::Timer::GetTotalTimeSeconds()
+float kobengine::Timer::GetTotalTimeSeconds()
 {
 	return m_TotalTimeSeconds;
 }
-float pompeii::Timer::TargetFPS()
+float kobengine::Timer::TargetFPS()
 {
 	return TARGET_FPS;
 }
-std::chrono::nanoseconds pompeii::Timer::SleepDurationNanoSeconds()
+std::chrono::nanoseconds kobengine::Timer::SleepDurationNanoSeconds()
 {
 	constexpr auto msPerFrame = std::chrono::milliseconds(static_cast<int>(1'000.f / TARGET_FPS));
 	const std::chrono::nanoseconds sleep = (m_CurrentTimePoint + msPerFrame - std::chrono::high_resolution_clock::now());

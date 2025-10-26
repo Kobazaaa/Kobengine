@@ -5,18 +5,18 @@
 #include <vector>
 #include <memory>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "ISystem.h"
 #include "Renderer.h"
 
 // -- Forward Declarations --
-namespace pompeii
+namespace kobengine
 {
 	class MeshRenderer;
 	class Camera;
 }
 
-namespace pompeii
+namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  Render System	
@@ -39,8 +39,8 @@ namespace pompeii
 		//--------------------------------------------------
 		//    Interface
 		//--------------------------------------------------
-		void SetRenderer(const std::shared_ptr<Renderer>& renderer);
-		Renderer* GetRenderer() const;
+		void SetRenderer(const std::shared_ptr<pompeii::Renderer>& renderer);
+		pompeii::Renderer* GetRenderer() const;
 		void BeginFrame() override;
 		void Update() override;
 		void EndFrame() override;
@@ -50,7 +50,7 @@ namespace pompeii
 		std::vector<MeshRenderer*> m_vRegisteredModels{};
 		std::vector<MeshRenderer*> m_vVisibleModels{};
 		Camera* m_pMainCamera{};
-		std::shared_ptr<Renderer> m_pRenderer{};
+		std::shared_ptr<pompeii::Renderer> m_pRenderer{};
 		bool m_UpdateModels{};
 
 		//--------------------------------------------------

@@ -7,16 +7,16 @@
 #include <algorithm>
 #include <vector>
 
-// -- Pompeii Includes --
+// -- Kobengine Includes --
 #include "Component.h"
 #include "Transform.h"
 
 // -- Forward Declarations --
-namespace pompeii
+namespace kobengine
 {
 	class Scene;
 }
-namespace pompeii
+namespace kobengine
 {
 	class SceneObject final
 	{
