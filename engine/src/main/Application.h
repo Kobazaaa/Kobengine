@@ -4,9 +4,6 @@
 // -- Kobengine Includes --
 #include "IWindow.h"
 
-// -- Pompeii Includes --
-#include "Renderer.h"
-
 namespace kobengine
 {
 	class Application
@@ -28,7 +25,7 @@ namespace kobengine
 		virtual void Shutdown();
 
 		std::unique_ptr<IWindow> m_pWindow;
-		std::shared_ptr<pompeii::Renderer> m_pRenderer;
+		//std::shared_ptr<pompeii::Renderer> m_pRenderer;
 	};
 
 	Application* CreateApplication();

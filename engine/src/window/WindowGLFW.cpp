@@ -1,6 +1,3 @@
-// -- Standard Library --
-#include <stdexcept>
-
 // -- Kobengine Includes --
 #include "WindowGLFW.h"
 

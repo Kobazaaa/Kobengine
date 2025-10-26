@@ -36,7 +36,7 @@ kobengine::Application::Application(const WindowSettings& windowSettings)
 //--------------------------------------------------
 void kobengine::Application::Run()
 {
-	ServiceLocator::Get<SceneManager>().Start();
+	//ServiceLocator::Get<SceneManager>().Start();
 	Timer::Start();
 
 	while (!m_pWindow->ShouldClose())
@@ -46,8 +46,8 @@ void kobengine::Application::RunOneFrame()
 {
 	Timer::Update();
 
-	auto& sceneManager = ServiceLocator::Get<SceneManager>();
-	sceneManager.Update();
+	//auto& sceneManager = ServiceLocator::Get<SceneManager>();
+	//sceneManager.Update();
 	//m_pRendererm_pRenderer->Render();
 
 	std::this_thread::sleep_for(Timer::SleepDurationNanoSeconds());

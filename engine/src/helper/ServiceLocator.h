@@ -4,12 +4,8 @@
 // -- Standard Library --
 #include <memory>
 #include <typeindex>
+#include <unordered_map>
 #include <stdexcept>
-
-// -- Kobengine Includes --
-#include "SceneManager.h"
-#include "LightingSystem.h"
-#include "RenderSystem.h"
 
 namespace kobengine
 {
