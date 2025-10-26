@@ -2,7 +2,6 @@
 #define WINDOW_H
 
 // -- GLFW Includes --
-#define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
 // -- Kobengine Includes --

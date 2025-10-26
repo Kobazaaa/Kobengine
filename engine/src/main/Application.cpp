@@ -44,6 +44,7 @@ void kobengine::Application::Run()
 }
 void kobengine::Application::RunOneFrame()
 {
+	m_pWindow->PollEvents();
 	Timer::Update();
 
 	//auto& sceneManager = ServiceLocator::Get<SceneManager>();

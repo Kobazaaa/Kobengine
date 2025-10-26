@@ -15,12 +15,12 @@ kobengine::WindowGLFW::WindowGLFW(const WindowSettings& windowSettings)
 	glfwInit();
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
+	// -- Create Window --
+	m_pWindow = glfwCreateWindow(windowSettings.width, windowSettings.height, windowSettings.title.c_str(), nullptr, nullptr);
+
 	m_Fullscreen = false;
 	glfwGetWindowSize(m_pWindow, &m_WindowedSize.x, &m_WindowedSize.y);
 	glfwGetWindowPos(m_pWindow, &m_WindowedPos.x, &m_WindowedPos.y);
-
-	// -- Create Window --
-	m_pWindow = glfwCreateWindow(windowSettings.width, windowSettings.height, windowSettings.title.c_str(), nullptr, nullptr);
 
 	// -- Callbacks --
 	glfwSetWindowUserPointer(m_pWindow, this);

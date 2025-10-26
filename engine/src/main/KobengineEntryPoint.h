@@ -6,7 +6,7 @@
 
 extern kobengine::Application* CreateApplication();
 
-int main(int argc, char** argv)
+int main(int, char**)
 {
 	kobengine::Application* application = kobengine::CreateApplication();
 	application->Run();
