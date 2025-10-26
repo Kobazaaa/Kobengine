@@ -1,6 +1,9 @@
 #ifndef KOBENGINE_APPLICATION_H
 #define KOBENGINE_APPLICATION_H
 
+// -- Standard Library --
+#include <memory>
+
 // -- Kobengine Includes --
 #include "IWindow.h"
 
