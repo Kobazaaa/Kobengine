@@ -48,7 +48,7 @@ void kobengine::Application::RunOneFrame()
 
 	auto& sceneManager = ServiceLocator::Get<SceneManager>();
 	sceneManager.Update();
-	m_pRenderer->Render();
+	//m_pRendererm_pRenderer->Render();
 
 	std::this_thread::sleep_for(Timer::SleepDurationNanoSeconds());
 }

@@ -62,4 +62,4 @@ target_compile_options(${PROJECT_NAME} PRIVATE
 #    LIBRARIES
 #--------------------------------------------------
 include("../cmake/FetchAndIncludeLibraries.cmake")
-target_link_libraries(${PROJECT_NAME} PRIVATE Pompeii)
+target_link_libraries(${PROJECT_NAME} PUBLIC Pompeii)
