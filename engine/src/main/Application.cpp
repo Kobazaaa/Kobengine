@@ -15,8 +15,10 @@ kobengine::Application::Application(const WindowSettings& windowSettings)
 	// -- Create Window --
 	m_pWindow = std::make_unique<WindowGLFW>(windowSettings);
 
+	// -- Create Renderer --
+	m_pRenderer = std::make_shared<pompeii::Renderer>();
+
 	// -- Register Services --
-	//m_pRenderer = std::make_shared<pompeii::Renderer>(m_pWindow);
 	//ServiceLocator::Register(std::make_unique<SceneManager>());
 	//ServiceLocator::Register(std::make_unique<RenderSystem>());
 	//ServiceLocator::Register(std::make_unique<LightingSystem>());
@@ -49,7 +51,7 @@ void kobengine::Application::RunOneFrame()
 
 	//auto& sceneManager = ServiceLocator::Get<SceneManager>();
 	//sceneManager.Update();
-	//m_pRendererm_pRenderer->Render();
+	auto& image = m_pRenderer->Render();
 
 	std::this_thread::sleep_for(Timer::SleepDurationNanoSeconds());
 }
