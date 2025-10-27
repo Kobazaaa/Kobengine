@@ -3,8 +3,6 @@
 
 // -- Time --
 #include <chrono>
-using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock>;
-
 
 // -- Class --
 namespace kobengine
@@ -58,6 +56,7 @@ namespace kobengine
 
 		inline static int				m_Ticks				{ };
 
+		using TimePoint = std::chrono::time_point<std::chrono::high_resolution_clock>;
 		inline static TimePoint			m_CurrentTimePoint	{ };
 		inline static TimePoint			m_LastTimePoint		{ };
 
