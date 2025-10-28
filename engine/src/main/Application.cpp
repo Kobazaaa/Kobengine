@@ -125,7 +125,7 @@ void kobengine::Application::RunOneFrame()
 
 void kobengine::Application::Shutdown()
 {
-	pRenderLayer->GetRenderer()->GetContext().device.WaitIdle();
+	m_pRenderLayer->GetRenderer()->GetContext().device.WaitIdle();
 	ServiceLocator::Deregister<SceneManager>();
 	ServiceLocator::Get<AssetManager>().UnloadAll();
 	ServiceLocator::Deregister<AssetManager>();
