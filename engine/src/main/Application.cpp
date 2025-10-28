@@ -27,7 +27,7 @@ kobengine::Application::Application(const WindowSettings& windowSettings)
 	m_pLayerStack = std::make_unique<LayerStack>();
 
 	// -- Create Renderer --
-	m_pRenderer = std::make_shared<pompeii::Renderer>();
+	m_pRenderLayer = dynamic_cast<RenderLayer*>(m_pLayerStack->PushLayer(std::make_unique<RenderLayer>()));
 
 	// -- Register Services --
 	ServiceLocator::Register(std::make_unique<SceneManager>());
@@ -35,9 +35,10 @@ kobengine::Application::Application(const WindowSettings& windowSettings)
 	ServiceLocator::Register(std::make_unique<LightingSystem>());
 	ServiceLocator::Register(std::make_unique<AssetManager>());
 
-	ServiceLocator::Get<LightingSystem>().SetRenderer(m_pRenderer);
-	ServiceLocator::Get<RenderSystem>().SetRenderer(m_pRenderer);
-	ServiceLocator::Get<AssetManager>().SetRenderer(m_pRenderer);
+	auto renderer = m_pRenderLayer->GetRenderer();
+	ServiceLocator::Get<LightingSystem>().SetRenderer(renderer);
+	ServiceLocator::Get<RenderSystem>().SetRenderer(renderer);
+	ServiceLocator::Get<AssetManager>().SetRenderer(renderer);
 	//m_pRenderer->InsertUI([]
 	//	{
 	//		ServiceLocator::Get<Editor>().Draw();
@@ -113,8 +114,6 @@ void kobengine::Application::RunOneFrame()
 	
 	// -- Render Phase --
 	m_pLayerStack->UpdateAllLayers();
-	auto& image = m_pRenderer->Render();
-	image;
 
 	// -- End Frame Phase --
 	ServiceLocator::Get<LightingSystem>().EndFrame();
@@ -126,13 +125,12 @@ void kobengine::Application::RunOneFrame()
 
 void kobengine::Application::Shutdown()
 {
-	m_pLayerStack->DetachAllLayers();
-
-	ServiceLocator::Get<RenderSystem>().GetRenderer()->GetContext().device.WaitIdle();
+	pRenderLayer->GetRenderer()->GetContext().device.WaitIdle();
 	ServiceLocator::Deregister<SceneManager>();
 	ServiceLocator::Get<AssetManager>().UnloadAll();
 	ServiceLocator::Deregister<AssetManager>();
 	ServiceLocator::Deregister<LightingSystem>();
 	ServiceLocator::Deregister<RenderSystem>();
-	m_pRenderer.reset();
+
+	m_pLayerStack->DetachAllLayers();
 }

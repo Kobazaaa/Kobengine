@@ -8,6 +8,7 @@
 #include "IWindow.h"
 #include "LayerStack.h"
 #include "Renderer.h"
+#include "RenderLayer.h"
 
 namespace kobengine
 {
@@ -34,7 +35,7 @@ namespace kobengine
 
 		std::unique_ptr<IWindow> m_pWindow;
 		std::unique_ptr<LayerStack> m_pLayerStack;
-		std::shared_ptr<pompeii::Renderer> m_pRenderer;
+		RenderLayer* m_pRenderLayer;
 	};
 
 	Application* CreateApplication();

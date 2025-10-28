@@ -25,7 +25,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Utilities
 		//--------------------------------------------------
-		void PushLayer(std::unique_ptr<ILayer> layer);
+		ILayer* PushLayer(std::unique_ptr<ILayer> layer);
 		void PopLayer(ILayer* layer);
 
 		//--------------------------------------------------

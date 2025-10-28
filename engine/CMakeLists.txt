@@ -12,6 +12,7 @@ set(SOURCES
 
 	# layers
 	"${SOURCE_DIR}/layers/LayerStack.cpp"
+	"${SOURCE_DIR}/layers/RenderLayer.cpp"
 
 	# managers
 	"${SOURCE_DIR}/managers/AssetManager.cpp"
