@@ -12,8 +12,6 @@
 namespace pompeii
 {
 	struct AABB;
-	struct Context;
-	class Scene;
 }
 
 namespace kobengine

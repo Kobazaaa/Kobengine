@@ -1,6 +1,8 @@
 // -- Kobengine Includes --
 #include "LightComponent.h"
 #include "ServiceLocator.h"
+#include "LightingSystem.h"
+#include "Scene.h"
 
 //--------------------------------------------------
 //    Constructor & Destructor

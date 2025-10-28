@@ -1,7 +1,8 @@
 // -- Kobengine Includes --
 #include "MeshRenderer.h"
 #include "ServiceLocator.h"
-
+#include "RenderSystem.h"
+#include "Scene.h"
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //? ~~	  Model	

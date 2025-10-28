@@ -20,7 +20,7 @@ namespace kobengine
 		//    Constructor & Destructor
 		//--------------------------------------------------
 		explicit WindowGLFW(const WindowSettings& windowSettings);
-		~WindowGLFW();
+		~WindowGLFW() override;
 
 		//--------------------------------------------------
 		//    Lifecycle

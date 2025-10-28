@@ -11,6 +11,7 @@
 #include "SceneObject.h"
 #include "IWindow.h"
 #include "Timer.h"
+#include "RenderSystem.h"
 
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,12 +43,12 @@ void kobengine::Camera::Update()
 {
 	if (!m_pWindow)
 		std::cerr << "Window not valid for Camera!\n";
+	HandleAim();
+	HandleMovement();
 
-	const auto& io = ImGui::GetIO();
-	if (!io.WantCaptureMouse)
-		HandleAim();
-	if (!io.WantCaptureKeyboard)
-		HandleMovement();
+	//const auto& io = ImGui::GetIO();
+	//if (!io.WantCaptureMouse)
+	//if (!io.WantCaptureKeyboard)
 }
 void kobengine::Camera::OnInspectorDraw()
 {
