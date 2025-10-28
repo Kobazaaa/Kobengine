@@ -10,6 +10,9 @@ set(SOURCES
 	# helper
 	"${SOURCE_DIR}/helper/Timer.cpp"
 
+	# layers
+	"${SOURCE_DIR}/layers/LayerStack.cpp"
+
 	# managers
 	"${SOURCE_DIR}/managers/AssetManager.cpp"
 	
@@ -42,6 +45,7 @@ add_library(${PROJECT_NAME} STATIC ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC
 	"${SOURCE_DIR}"
 	"${SOURCE_DIR}/helper"
+	"${SOURCE_DIR}/layers"
 	"${SOURCE_DIR}/main"
 	"${SOURCE_DIR}/managers"
 	"${SOURCE_DIR}/scene"

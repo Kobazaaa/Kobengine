@@ -12,6 +12,7 @@
 #include "SceneManager.h"
 #include "AssetManager.h"
 #include "Camera.h"
+#include "LayerStack.h"
 #include "LightComponent.h"
 #include "MeshFilter.h"
 #include "MeshRenderer.h"
@@ -21,8 +22,9 @@
 //--------------------------------------------------
 kobengine::Application::Application(const WindowSettings& windowSettings)
 {
-	// -- Create Window --
+	// -- Create --
 	m_pWindow = std::make_unique<WindowGLFW>(windowSettings);
+	m_pLayerStack = std::make_unique<LayerStack>();
 
 	// -- Create Renderer --
 	m_pRenderer = std::make_shared<pompeii::Renderer>();
@@ -110,6 +112,7 @@ void kobengine::Application::RunOneFrame()
 	ServiceLocator::Get<RenderSystem>().Update();
 	
 	// -- Render Phase --
+	m_pLayerStack->UpdateAllLayers();
 	auto& image = m_pRenderer->Render();
 	image;
 
@@ -123,6 +126,8 @@ void kobengine::Application::RunOneFrame()
 
 void kobengine::Application::Shutdown()
 {
+	m_pLayerStack->DetachAllLayers();
+
 	ServiceLocator::Get<RenderSystem>().GetRenderer()->GetContext().device.WaitIdle();
 	ServiceLocator::Deregister<SceneManager>();
 	ServiceLocator::Get<AssetManager>().UnloadAll();

@@ -6,10 +6,14 @@
 
 // -- Kobengine Includes --
 #include "IWindow.h"
+#include "LayerStack.h"
 #include "Renderer.h"
 
 namespace kobengine
 {
+	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	//? ~~	  Application	
+	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class Application
 	{
 	public:
@@ -29,6 +33,7 @@ namespace kobengine
 		virtual void Shutdown();
 
 		std::unique_ptr<IWindow> m_pWindow;
+		std::unique_ptr<LayerStack> m_pLayerStack;
 		std::shared_ptr<pompeii::Renderer> m_pRenderer;
 	};
 
