@@ -6,6 +6,7 @@
 
 // -- Kobengine Includes --
 #include "ILayer.h"
+#include "Event.h"
 
 // -- Pompeii Includes --
 #include "Renderer.h"
@@ -30,7 +31,15 @@ namespace kobengine
 		void OnUpdate() override;
 		void OnDetach() override;
 
-		std::shared_ptr<pompeii::Renderer> GetRenderer() { return m_pRenderer; }
+		//--------------------------------------------------
+		//    Accessors
+		//--------------------------------------------------
+		std::shared_ptr<pompeii::Renderer> GetRenderer();
+
+		//--------------------------------------------------
+		//    Events
+		//--------------------------------------------------
+		Event<const pompeii::Image&> OnImageRendered;
 
 	private:
 		std::shared_ptr<pompeii::Renderer> m_pRenderer;
