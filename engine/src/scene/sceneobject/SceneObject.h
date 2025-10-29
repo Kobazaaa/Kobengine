@@ -38,7 +38,6 @@ namespace kobengine
 		//--------------------------------------------------
 		void Start() const;
 		void Update() const;
-		void OnInspectorDraw();
 
 		//--------------------------------------------------
 		//    Components

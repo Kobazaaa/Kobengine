@@ -50,35 +50,6 @@ void kobengine::Camera::Update()
 	//if (!io.WantCaptureMouse)
 	//if (!io.WantCaptureKeyboard)
 }
-void kobengine::Camera::OnInspectorDraw()
-{
-	// --- Movement ---
-	ImGui::SeparatorText("Movement");
-	ImGui::InputFloat("Speed", &m_Speed);
-	ImGui::InputFloat("Sensitivity", &m_Sensitivity);
-
-	// --- Projection ---
-	ImGui::SeparatorText("Projection");
-	if (ImGui::DragFloat("Field Of View", &m_Settings.fov, 0.1f, 1.f, 179.f))
-		m_SettingsDirty = true;
-	if (ImGui::DragFloat2("View Plane", &m_Settings.nearPlane, 0.01f))
-		m_SettingsDirty = true;
-
-	// --- Exposure ---
-	ImGui::SeparatorText("Exposure");
-	ImGui::Checkbox("Auto-Exposure", &m_AutoExposure);
-	if (m_AutoExposure)
-	{
-		ImGui::DragFloat("Min Log Lum", &m_AutoExposureSettings.minLogLum, 0.01f);
-		ImGui::DragFloat("Log Lum Range", &m_AutoExposureSettings.logLumRange, 0.01f);
-	}
-	else
-	{
-		ImGui::DragFloat("Aperture", &m_ManualExposureSettings.aperture, 0.01f, 0.1f, 32.0f);
-		ImGui::DragFloat("ISO", &m_ManualExposureSettings.iso, 1.0f, 10.f, 12800.f);
-		ImGui::DragFloat("ShutterSpeed", &m_ManualExposureSettings.shutterSpeed, 0.001f, 0.0001f, 10.f);
-	}
-}
 
 
 //--------------------------------------------------

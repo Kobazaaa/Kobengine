@@ -28,7 +28,6 @@ namespace kobengine
 		//    Loop
 		//--------------------------------------------------
 		void Start() override;
-		void OnInspectorDraw() override;
 
 		//--------------------------------------------------
 		//    Data

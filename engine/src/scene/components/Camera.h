@@ -8,7 +8,6 @@
 
 // -- Math Includes --
 #include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
 
 // -- Kobengine Includes --
 #include "Component.h"
@@ -46,7 +45,6 @@ namespace kobengine
 		//--------------------------------------------------
 		void Start() override;
 		void Update() override;
-		void OnInspectorDraw() override;
 
 		//--------------------------------------------------
 		//    Accessors & Mutators

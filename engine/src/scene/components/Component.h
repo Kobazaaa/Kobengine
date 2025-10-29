@@ -7,14 +7,12 @@
 // -- Kobengine Includes --
 #include "Transform.h"
 
-// -- ImGui --
-#include "imgui.h"
-
 // -- Forward Declarations --
 namespace kobengine
 {
 	class SceneObject;
 }
+
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -39,7 +37,6 @@ namespace kobengine
 		//--------------------------------------------------
 		virtual void Start() {}
 		virtual void Update() {}
-		virtual void OnInspectorDraw() {}
 
 		//--------------------------------------------------
 		//    Accessors & Mutators

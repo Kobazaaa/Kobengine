@@ -39,7 +39,6 @@ namespace kobengine
 		//--------------------------------------------------
 		void Start() override;
 		void Update() override;
-		void OnInspectorDraw() override;
 
 		//--------------------------------------------------
 		//    Accessors & Mutators

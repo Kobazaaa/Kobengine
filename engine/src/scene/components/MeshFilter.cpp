@@ -3,9 +3,6 @@
 #include "AssetManager.h"
 #include "ServiceLocator.h"
 
-// -- ImGui --
-#include "ImGuiFileDialog.h"
-
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //? ~~	  MeshFilter	
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -26,8 +23,5 @@ kobengine::MeshFilter::~MeshFilter()
 //    Loop
 //--------------------------------------------------
 void kobengine::MeshFilter::Start()
-{
-}
-void kobengine::MeshFilter::OnInspectorDraw()
 {
 }
