@@ -45,6 +45,7 @@ add_library(${PROJECT_NAME} STATIC ${SOURCES})
 # Set include directories
 target_include_directories(${PROJECT_NAME} PUBLIC
 	"${SOURCE_DIR}"
+	"${SOURCE_DIR}/events"
 	"${SOURCE_DIR}/helper"
 	"${SOURCE_DIR}/layers"
 	"${SOURCE_DIR}/main"
