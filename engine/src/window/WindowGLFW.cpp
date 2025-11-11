@@ -1,5 +1,10 @@
-// -- Kobengine Includes --
+// -- Pompeii Includes --
+#define GLFW_INCLUDE_VULKAN
 #include "WindowGLFW.h"
+#include "Instance.h"
+
+// -- Standard Library --
+#include <stdexcept>
 
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -9,7 +14,7 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-kobengine::WindowGLFW::WindowGLFW(const WindowSettings& windowSettings)
+kobengine::WindowGLFW::WindowGLFW(const pompeii::WindowSettings& windowSettings)
 {
 	// -- Init --
 	glfwInit();
@@ -64,12 +69,12 @@ float kobengine::WindowGLFW::GetAspectRatio() const
 	const float aspect = static_cast<float>(fbSize.x) / static_cast<float>(fbSize.y);
 	return aspect;
 }
-glm::ivec2 kobengine::WindowGLFW::GetFramebufferSize() const
+glm::uvec2 kobengine::WindowGLFW::GetFramebufferSize() const
 {
 	int width;
 	int height;
 	glfwGetFramebufferSize(m_pWindow, &width, &height);
-	return glm::ivec2(width, height);
+	return glm::uvec2(width, height);
 }
 bool kobengine::WindowGLFW::IsFullScreen() const
 {
@@ -107,6 +112,22 @@ bool kobengine::WindowGLFW::IsOutdated() const
 void kobengine::WindowGLFW::ResetOutdated()
 {
 	m_IsOutdated = false;
+}
+VkSurfaceKHR kobengine::WindowGLFW::CreateVulkanSurface(const pompeii::Instance& instance)
+{
+	if (glfwCreateWindowSurface(instance.GetHandle(), m_pWindow, nullptr, &m_VulkanSurface) != VK_SUCCESS)
+		throw std::runtime_error("Failed to create Window Surface!");
+	return m_VulkanSurface;
+}
+std::vector<const char*> kobengine::WindowGLFW::GetRequiredVulkanExtensions() const
+{
+	uint32_t glfwExtensionCount = 0;
+	const char** glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+	std::vector<const char*> ext(glfwExtensionCount);
+	for (uint32_t index{}; index < glfwExtensionCount; ++index)
+		ext[index] = glfwExtensions[index];
+	return ext;
 }
 
 //--------------------------------------------------

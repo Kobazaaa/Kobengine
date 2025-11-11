@@ -13,9 +13,6 @@
 #include "Component.h"
 #include "GPUCamera.h"
 
-// -- Forward Declarations --
-namespace kobengine { class IWindow; }
-
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -38,7 +35,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Constructor & Destructor
 		//--------------------------------------------------
-		explicit Camera(SceneObject& parent, const CameraSettings& settings, const IWindow* pWindow, bool mainCam = false);
+		explicit Camera(SceneObject& parent, const CameraSettings& settings, bool mainCam = false);
 
 		//--------------------------------------------------
 		//    Loop
@@ -85,9 +82,6 @@ namespace kobengine
 
 		// -- Dirty Flags
 		bool m_SettingsDirty				{ true };
-
-		// -- Window --
-		void* m_pWindow						{ nullptr };
 	};
 }
 

@@ -4,8 +4,10 @@
 // -- Standard Library --
 #include <memory>
 
-// -- Kobengine Includes --
+// -- Pompeii Includes --
 #include "IWindow.h"
+
+// -- Kobengine Includes --
 #include "LayerStack.h"
 #include "Renderer.h"
 #include "RenderLayer.h"
@@ -21,7 +23,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Constructor & Destructor
 		//--------------------------------------------------
-		explicit Application(const WindowSettings& windowSettings);
+		explicit Application(const pompeii::WindowSettings& windowSettings);
 		virtual ~Application() = default;
 
 		//--------------------------------------------------
@@ -33,7 +35,7 @@ namespace kobengine
 	protected:
 		virtual void Shutdown();
 
-		std::unique_ptr<IWindow> m_pWindow;
+		std::unique_ptr<pompeii::IWindow> m_pWindow;
 		std::unique_ptr<LayerStack> m_pLayerStack;
 		RenderLayer* m_pRenderLayer;
 	};

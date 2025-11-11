@@ -20,14 +20,14 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-kobengine::Application::Application(const WindowSettings& windowSettings)
+kobengine::Application::Application(const pompeii::WindowSettings& windowSettings)
 {
 	// -- Create --
 	m_pWindow = std::make_unique<WindowGLFW>(windowSettings);
 	m_pLayerStack = std::make_unique<LayerStack>();
 
 	// -- Create Renderer --
-	m_pRenderLayer = dynamic_cast<RenderLayer*>(m_pLayerStack->PushLayer(std::make_unique<RenderLayer>()));
+	m_pRenderLayer = dynamic_cast<RenderLayer*>(m_pLayerStack->PushLayer(std::make_unique<RenderLayer>(m_pWindow.get())));
 
 	// -- Register Services --
 	ServiceLocator::Register(std::make_unique<SceneManager>());
@@ -50,12 +50,12 @@ kobengine::Application::Application(const WindowSettings& windowSettings)
 
 	// cam
 	auto& camera = scene.AddEmpty("Camera");
-	camera.AddComponent<Camera>(CameraSettings{ .fov = 45.f, .aspectRatio = m_pWindow->GetAspectRatio(), .nearPlane = 0.001f, .farPlane = 1000.f }, m_pWindow.get(), true);
+	camera.AddComponent<Camera>(CameraSettings{ .fov = 45.f, .aspectRatio = m_pWindow->GetAspectRatio(), .nearPlane = 0.001f, .farPlane = 1000.f }, true);
 
 	// model
 	auto& model = scene.AddEmpty("Model");
 	auto filter = model.AddComponent<MeshFilter>();
-	pompeii::Mesh* pMesh = ServiceLocator::Get<AssetManager>().LoadMesh("models/FlightHelmet.gltf");
+	pompeii::Mesh* pMesh = ServiceLocator::Get<AssetManager>().LoadMesh("models/Sponza.gltf");
 	filter->pMesh = pMesh;
 	model.AddComponent<MeshRenderer>(*filter);
 

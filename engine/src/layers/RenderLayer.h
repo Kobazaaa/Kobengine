@@ -6,7 +6,6 @@
 
 // -- Kobengine Includes --
 #include "ILayer.h"
-#include "Event.h"
 
 // -- Pompeii Includes --
 #include "Renderer.h"
@@ -22,7 +21,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Constructor & Destructor
 		//--------------------------------------------------
-		explicit RenderLayer();
+		explicit RenderLayer(pompeii::IWindow* pWindow);
 
 		//--------------------------------------------------
 		//    Loop
@@ -36,13 +35,9 @@ namespace kobengine
 		//--------------------------------------------------
 		std::shared_ptr<pompeii::Renderer> GetRenderer();
 
-		//--------------------------------------------------
-		//    Events
-		//--------------------------------------------------
-		Event<const pompeii::Image&> OnImageRendered;
-
 	private:
 		std::shared_ptr<pompeii::Renderer> m_pRenderer;
+		pompeii::IWindow* m_pWindow{};
 	};
 }
 

@@ -5,11 +5,10 @@
 //--------------------------------------------------
 //    Constructor & Destructor
 //--------------------------------------------------
-kobengine::RenderLayer::RenderLayer()
+kobengine::RenderLayer::RenderLayer(pompeii::IWindow* pWindow)
 	: m_pRenderer(std::make_shared<pompeii::Renderer>())
-{
-	
-}
+	, m_pWindow(pWindow)
+{ }
 
 
 //--------------------------------------------------
@@ -17,12 +16,11 @@ kobengine::RenderLayer::RenderLayer()
 //--------------------------------------------------
 void kobengine::RenderLayer::OnAttach()
 {
-	m_pRenderer->Initialize();
+	m_pRenderer->Initialize(m_pWindow);
 }
 void kobengine::RenderLayer::OnUpdate()
 {
-	auto& renderedImage = m_pRenderer->Render();
-	OnImageRendered.Invoke(renderedImage);
+	m_pRenderer->Render();
 }
 void kobengine::RenderLayer::OnDetach()
 {

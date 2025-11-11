@@ -4,7 +4,7 @@
 // -- GLFW Includes --
 #include <GLFW/glfw3.h>
 
-// -- Kobengine Includes --
+// -- Pompeii Includes --
 #include "IWindow.h"
 
 // -- Class --
@@ -13,13 +13,13 @@ namespace kobengine
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	//? ~~	  WindowGLFW	
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	class WindowGLFW final : public IWindow
+	class WindowGLFW final : public pompeii::IWindow
 	{
 	public:
 		//--------------------------------------------------
 		//    Constructor & Destructor
 		//--------------------------------------------------
-		explicit WindowGLFW(const WindowSettings& windowSettings);
+		explicit WindowGLFW(const pompeii::WindowSettings& windowSettings);
 		~WindowGLFW() override;
 
 		//--------------------------------------------------
@@ -32,13 +32,15 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Properties
 		//--------------------------------------------------
-		void SetTitle(const std::string& title)					override;
-		float GetAspectRatio()							const	override;
-		glm::ivec2 GetFramebufferSize()					const	override;
-		bool IsFullScreen()								const	override;
-		void ToggleFullScreen()									override;
-		bool IsOutdated()								const	override;
-		void ResetOutdated()									override;
+		void SetTitle(const std::string& title)								override;
+		float GetAspectRatio()							const				override;
+		glm::uvec2 GetFramebufferSize()					const				override;
+		bool IsFullScreen()								const				override;
+		void ToggleFullScreen()												override;
+		bool IsOutdated()								const				override;
+		void ResetOutdated()												override;
+		VkSurfaceKHR CreateVulkanSurface(const pompeii::Instance& instance) override;
+		std::vector<const char*> GetRequiredVulkanExtensions() const		override;
 
 		//--------------------------------------------------
 		//    Handle
