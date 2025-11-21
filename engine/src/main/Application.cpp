@@ -2,20 +2,29 @@
 #include <thread>
 
 // -- Kobengine Includes --
+// -- App --
 #include "Application.h"
-#include "Timer.h"
-#include "ServiceLocator.h"
-#include "WindowGLFW.h"
+#include "LayerStack.h"
 
+// -- Systems --
 #include "RenderSystem.h"
 #include "LightingSystem.h"
-#include "SceneManager.h"
+
+// -- Helper --
 #include "AssetManager.h"
+#include "InputManager.h"
+#include "Timer.h"
+#include "SceneManager.h"
+#include "ServiceLocator.h"
+
+// -- Components --
 #include "Camera.h"
-#include "LayerStack.h"
 #include "LightComponent.h"
 #include "MeshFilter.h"
 #include "MeshRenderer.h"
+
+// -- Platform --
+#include "InputHandlerGLFW.h"
 
 //--------------------------------------------------
 //    Constructor & Destructor
@@ -43,14 +52,14 @@ kobengine::Application::Application(const pompeii::WindowSettings& windowSetting
 	//	{
 	//		ServiceLocator::Get<Editor>().Draw();
 	//	});
-
+	InputManager::SetInputHandler(std::make_unique<InputHandlerGLFW>(static_cast<WindowGLFW*>(m_pWindow.get())));
 
 	auto& scene = ServiceLocator::Get<SceneManager>().CreateScene("DefaultScene");
 	ServiceLocator::Get<SceneManager>().SetActiveScene(scene);
 
 	// cam
 	auto& camera = scene.AddEmpty("Camera");
-	camera.AddComponent<Camera>(CameraSettings{ .fov = 45.f, .aspectRatio = m_pWindow->GetAspectRatio(), .nearPlane = 0.001f, .farPlane = 1000.f }, true);
+	auto cameraComp = camera.AddComponent<Camera>(CameraSettings{ .fov = 45.f, .aspectRatio = m_pWindow->GetAspectRatio(), .nearPlane = 0.001f, .farPlane = 1000.f }, true);
 
 	// model
 	auto& model = scene.AddEmpty("Model");
@@ -58,6 +67,26 @@ kobengine::Application::Application(const pompeii::WindowSettings& windowSetting
 	pompeii::Mesh* pMesh = ServiceLocator::Get<AssetManager>().LoadMesh("models/Sponza.gltf");
 	filter->pMesh = pMesh;
 	model.AddComponent<MeshRenderer>(*filter);
+
+	InputManager::RegisterCommand(KeyCode::LSHIFT, TriggerState::Press, [cameraComp]	{ cameraComp->Speed *= 4.f; });
+	InputManager::RegisterCommand(KeyCode::LSHIFT, TriggerState::Release, [cameraComp]	{ cameraComp->Speed *= .25f; });
+
+	InputManager::RegisterCommand(KeyCode::W, TriggerState::Hold, [&, cameraComp] { camera.transform->Translate(Timer::GetDeltaSeconds() * cameraComp->Speed * camera.transform->GetForward()); });
+	InputManager::RegisterCommand(KeyCode::A, TriggerState::Hold, [&, cameraComp] { camera.transform->Translate(-Timer::GetDeltaSeconds() * cameraComp->Speed * camera.transform->GetRight()); });
+	InputManager::RegisterCommand(KeyCode::S, TriggerState::Hold, [&, cameraComp] { camera.transform->Translate(-Timer::GetDeltaSeconds() * cameraComp->Speed * camera.transform->GetForward()); });
+	InputManager::RegisterCommand(KeyCode::D, TriggerState::Hold, [&, cameraComp] { camera.transform->Translate(Timer::GetDeltaSeconds() * cameraComp->Speed * camera.transform->GetRight()); });
+	InputManager::RegisterCommand(KeyCode::Q, TriggerState::Hold, [&, cameraComp] { camera.transform->Translate(Timer::GetDeltaSeconds() * cameraComp->Speed * glm::vec3(0, -1, 0)); });
+	InputManager::RegisterCommand(KeyCode::E, TriggerState::Hold, [&, cameraComp] { camera.transform->Translate(Timer::GetDeltaSeconds() * cameraComp->Speed * glm::vec3(0, 1, 0)); });
+
+	InputManager::RegisterCommand(MouseButton::Left, TriggerState::Hold, [&, cameraComp]
+	{
+		glm::vec3 euler = camera.transform->GetEulerAngles();
+		float pitch = euler.x + InputManager::GetMouseDelta().y * cameraComp->Sensitivity;
+		float yaw = euler.y + InputManager::GetMouseDelta().x * cameraComp->Sensitivity;
+		pitch = std::clamp(pitch, -89.f, 89.f);
+		float roll = euler.z;
+		camera.transform->SetEulerAngles({ pitch, yaw, roll });
+	});
 
 	// light
 	auto& light1 = scene.AddEmpty("SunLight");
@@ -99,9 +128,10 @@ void kobengine::Application::Run()
 }
 void kobengine::Application::RunOneFrame()
 {
-	m_pWindow->PollEvents();
 	Timer::Update();
 
+	m_pWindow->PollEvents();
+	InputManager::ProcessInput();
 
 	// --- Begin Frame Phase ---
 	ServiceLocator::Get<LightingSystem>().BeginFrame();

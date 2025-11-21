@@ -10,12 +10,21 @@ set(SOURCES
 	# helper
 	"${SOURCE_DIR}/helper/Timer.cpp"
 
+	# input
+	"${SOURCE_DIR}/input/InputManager.cpp"
+	"${SOURCE_DIR}/input/InputHandlerNull.cpp"
+
 	# layers
 	"${SOURCE_DIR}/layers/LayerStack.cpp"
 	"${SOURCE_DIR}/layers/RenderLayer.cpp"
 
 	# managers
 	"${SOURCE_DIR}/managers/AssetManager.cpp"
+
+	# platform
+	 # platform/GLFW
+	"${SOURCE_DIR}/platform/GLFW/WindowGLFW.cpp"
+	"${SOURCE_DIR}/platform/GLFW/InputHandlerGLFW.cpp"
 	
 	# scene
 	"${SOURCE_DIR}/scene/Scene.cpp"
@@ -34,9 +43,6 @@ set(SOURCES
 	# systems
 	"${SOURCE_DIR}/systems/LightingSystem.cpp"
 	"${SOURCE_DIR}/systems/RenderSystem.cpp"
-
-	# window
-	"${SOURCE_DIR}/window/WindowGLFW.cpp"
 )
 
 # Create the library
@@ -47,15 +53,17 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 	"${SOURCE_DIR}"
 	"${SOURCE_DIR}/events"
 	"${SOURCE_DIR}/helper"
+	"${SOURCE_DIR}/input"
 	"${SOURCE_DIR}/layers"
 	"${SOURCE_DIR}/main"
 	"${SOURCE_DIR}/managers"
+	"${SOURCE_DIR}/platform"
+	"${SOURCE_DIR}/platform/GLFW"
 	"${SOURCE_DIR}/scene"
 	"${SOURCE_DIR}/scene/base"
 	"${SOURCE_DIR}/scene/components"
 	"${SOURCE_DIR}/scene/sceneobject"
 	"${SOURCE_DIR}/systems"
-	"${SOURCE_DIR}/window"
 )
 
 # Max Warning Level & Warnings as Errors
