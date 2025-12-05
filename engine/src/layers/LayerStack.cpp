@@ -1,3 +1,6 @@
+// -- Standard Library --
+#include <ranges>
+
 // -- Kobengine Includes --
 #include "LayerStack.h"
 
@@ -30,14 +33,24 @@ void kobengine::LayerStack::PopLayer(ILayer* layer)
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
+void kobengine::LayerStack::BeginAllLayers()
+{
+	for (const auto& layer : m_vLayers)
+		layer->OnBegin();
+}
 void kobengine::LayerStack::UpdateAllLayers()
 {
 	for (const auto& layer : m_vLayers)
 		layer->OnUpdate();
 }
+void kobengine::LayerStack::EndAllLayers()
+{
+	for (const auto& layer : m_vLayers | std::views::reverse)
+		layer->OnEnd();
+}
 void kobengine::LayerStack::DetachAllLayers()
 {
-	for (const auto& layer : m_vLayers)
+	for (const auto& layer : m_vLayers | std::views::reverse)
 		layer->OnDetach();
 	m_vLayers.clear();
 }

@@ -15,7 +15,9 @@ namespace kobengine
 		virtual ~ILayer() = default;
 
 		virtual void OnAttach() {}
+		virtual void OnBegin()	{}
 		virtual void OnUpdate() {}
+		virtual void OnEnd()	{}
 		virtual void OnDetach() {}
 	};
 }

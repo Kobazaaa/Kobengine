@@ -143,7 +143,9 @@ void kobengine::Application::RunOneFrame()
 	ServiceLocator::Get<RenderSystem>().Update();
 	
 	// -- Render Phase --
+	m_pLayerStack->BeginAllLayers();
 	m_pLayerStack->UpdateAllLayers();
+	m_pLayerStack->EndAllLayers();
 
 	// -- End Frame Phase --
 	ServiceLocator::Get<LightingSystem>().EndFrame();

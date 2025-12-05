@@ -31,7 +31,9 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Loop
 		//--------------------------------------------------
+		void BeginAllLayers();
 		void UpdateAllLayers();
+		void EndAllLayers();
 		void DetachAllLayers();
 
 	private:

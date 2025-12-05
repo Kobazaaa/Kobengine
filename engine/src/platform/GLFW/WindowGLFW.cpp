@@ -22,6 +22,8 @@ kobengine::WindowGLFW::WindowGLFW(const pompeii::WindowSettings& windowSettings)
 
 	// -- Create Window --
 	m_pWindow = glfwCreateWindow(windowSettings.width, windowSettings.height, windowSettings.title.c_str(), nullptr, nullptr);
+	if (windowSettings.maximized)
+		glfwMaximizeWindow(m_pWindow);
 
 	m_Fullscreen = false;
 	glfwGetWindowSize(m_pWindow, &m_WindowedSize.x, &m_WindowedSize.y);

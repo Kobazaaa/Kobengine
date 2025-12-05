@@ -18,9 +18,24 @@ void kobengine::RenderLayer::OnAttach()
 {
 	m_pRenderer->Initialize(m_pWindow);
 }
+void kobengine::RenderLayer::OnBegin()
+{
+	m_StartFrameSuccess = m_pRenderer->StartFrame();
+}
 void kobengine::RenderLayer::OnUpdate()
 {
-	m_pRenderer->Render();
+	if (!m_StartFrameSuccess)
+		return;
+
+	m_pRenderer->RecordFrame();
+}
+void kobengine::RenderLayer::OnEnd()
+{
+	if (!m_StartFrameSuccess)
+		return;
+
+	m_pRenderer->SubmitFrame();
+	m_pRenderer->EndFrame();
 }
 void kobengine::RenderLayer::OnDetach()
 {

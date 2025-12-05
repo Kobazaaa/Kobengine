@@ -27,7 +27,9 @@ namespace kobengine
 		//    Loop
 		//--------------------------------------------------
 		void OnAttach() override;
+		void OnBegin() override;
 		void OnUpdate() override;
+		void OnEnd() override;
 		void OnDetach() override;
 
 		//--------------------------------------------------
@@ -36,6 +38,7 @@ namespace kobengine
 		std::shared_ptr<pompeii::Renderer> GetRenderer();
 
 	private:
+		bool m_StartFrameSuccess{};
 		std::shared_ptr<pompeii::Renderer> m_pRenderer;
 		pompeii::IWindow* m_pWindow{};
 	};
