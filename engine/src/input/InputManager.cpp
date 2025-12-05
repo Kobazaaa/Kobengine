@@ -9,6 +9,9 @@ void kobengine::InputManager::ProcessInput()
 {
 	m_pInputHandler->Update();
 
+	if (!m_Active)
+		return;
+
 	ProcessKeyboard();
 	ProcessMouse();
 }
@@ -51,6 +54,10 @@ glm::vec2 kobengine::InputManager::GetMousePosition()
 glm::vec2 kobengine::InputManager::GetMouseDelta()
 {
 	return m_pInputHandler->GetMouseDelta();
+}
+void kobengine::InputManager::SetInputActive(bool active)
+{
+	m_Active = active;
 }
 
 

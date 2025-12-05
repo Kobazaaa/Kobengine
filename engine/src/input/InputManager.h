@@ -50,6 +50,7 @@ namespace kobengine
         static bool IsMouseButtonDown(MouseButton button);
         static glm::vec2 GetMousePosition();
         static glm::vec2 GetMouseDelta();
+        static void SetInputActive(bool active);
 
     private:
         static void ProcessKeyboard();
@@ -60,6 +61,7 @@ namespace kobengine
             TriggerState state;
             Command command;
         };
+        inline static bool m_Active {true};
         inline static std::unordered_multimap<KeyCode, InputDetails> m_KeyboardMappings;
         inline static std::unordered_multimap<MouseButton, InputDetails> m_MouseMappings;
         inline static std::unique_ptr<IInputHandler> m_pInputHandler { std::make_unique<InputHandlerNull>()};

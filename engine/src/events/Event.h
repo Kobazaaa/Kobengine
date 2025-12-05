@@ -4,6 +4,7 @@
 // -- Standard Library --
 #include <functional>
 #include <vector>
+#include <memory>
 
 namespace kobengine
 {
