@@ -8,6 +8,7 @@ set(SOURCES
 	"${SOURCE_DIR}/main/Application.cpp"
 
 	# helper
+	"${SOURCE_DIR}/helper/Debug.cpp"
 	"${SOURCE_DIR}/helper/Timer.cpp"
 
 	# input
