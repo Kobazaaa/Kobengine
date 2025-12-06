@@ -51,7 +51,14 @@ namespace kobengine
 		}
 		template <typename ComponentType>
 			requires std::derived_from<ComponentType, Component>
-		[[nodiscard]] ComponentType* GetComponent(int index = 0)
+		[[nodiscard]] bool TryGetComponent(ComponentType*& out) const
+		{
+			out = GetComponent<ComponentType>();
+			return out;
+		}
+		template <typename ComponentType>
+			requires std::derived_from<ComponentType, Component>
+		[[nodiscard]] ComponentType* GetComponent(int index = 0) const
 		{
 			int componentCount = 0;
 			for (const auto& component : m_vComponents)
