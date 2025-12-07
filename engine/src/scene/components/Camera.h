@@ -41,12 +41,12 @@ namespace kobengine
 		// -- Settings --
 		void ChangeSettings(const CameraSettings& settings);
 		const CameraSettings& GetSettings() const;
-		const pompeii::ManualExposureSettings& GetManualExposureSettings() const;
-		const pompeii::AutoExposureSettings& GetAutoExposureSettings() const;
-		bool IsAutoExposureEnabled() const;
 
 		float Speed			{ 1.f };
 		float Sensitivity	{ 0.1f };
+		bool UseAutoExposure{ true };
+		pompeii::ManualExposureSettings ManualExposureSettings{ };
+		pompeii::AutoExposureSettings AutoExposureSettings{ };
 
 		// -- Matrices --
 		glm::mat4 GetViewMatrix() const;
@@ -56,13 +56,10 @@ namespace kobengine
 		glm::mat4 m_ProjectionMatrix { };
 
 		// -- Settings --
-		CameraSettings	 m_Settings									{ };
-		bool m_AutoExposure											{ true };
-		pompeii::ManualExposureSettings m_ManualExposureSettings	{ };
-		pompeii::AutoExposureSettings m_AutoExposureSettings		{ };
+		CameraSettings m_Settings { };
 
 		// -- Dirty Flags
-		bool m_SettingsDirty				{ true };
+		bool m_SettingsDirty { true };
 	};
 }
 

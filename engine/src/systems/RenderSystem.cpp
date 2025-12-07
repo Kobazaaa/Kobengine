@@ -68,9 +68,9 @@ void kobengine::RenderSystem::Update()
 	m_pRenderer->SetCamera(pompeii::CameraData{
 			.view = m_pMainCamera->GetViewMatrix(),
 			.proj = m_pMainCamera->GetProjectionMatrix(),
-			.manualExposureSettings = m_pMainCamera->GetManualExposureSettings(),
-			.autoExposureSettings = m_pMainCamera->GetAutoExposureSettings(),
-			.autoExposure = m_pMainCamera->IsAutoExposureEnabled(),
+			.manualExposureSettings = m_pMainCamera->ManualExposureSettings,
+			.autoExposureSettings = m_pMainCamera->AutoExposureSettings,
+			.autoExposure = m_pMainCamera->UseAutoExposure,
 		});
 	UpdateData();
 }

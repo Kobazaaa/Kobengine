@@ -18,9 +18,9 @@
 //--------------------------------------------------
 kobengine::Camera::Camera(SceneObject& parent, const CameraSettings& settings, bool mainCam)
 	: Component(parent, "Camera")
+	, ManualExposureSettings{ .aperture = 16.f, .shutterSpeed = 1.f / 100.f, .iso = 100.f}
+	, AutoExposureSettings{ .minLogLum = -8.f, .logLumRange = 12.f }
 	, m_Settings(settings)
-	, m_ManualExposureSettings{ .aperture = 16.f, .shutterSpeed = 1.f / 100.f, .iso = 100.f}
-	, m_AutoExposureSettings{ .minLogLum = -8.f, .logLumRange = 12.f }
 {
 	if (mainCam)
 		ServiceLocator::Get<RenderSystem>().SetMainCamera(*this);
@@ -43,10 +43,6 @@ void kobengine::Camera::Update()
 // -- Settings --
 void kobengine::Camera::ChangeSettings(const CameraSettings& settings) { m_Settings = settings; m_SettingsDirty = true; }
 const kobengine::CameraSettings& kobengine::Camera::GetSettings() const	{ return m_Settings; }
-
-const pompeii::ManualExposureSettings& kobengine::Camera::GetManualExposureSettings() const { return m_ManualExposureSettings; }
-const pompeii::AutoExposureSettings& kobengine::Camera::GetAutoExposureSettings() const { return m_AutoExposureSettings; }
-bool kobengine::Camera::IsAutoExposureEnabled() const { return m_AutoExposure; }
 
 // -- Matrices --
 glm::mat4 kobengine::Camera::GetViewMatrix() const
