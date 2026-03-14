@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//? ~~	  Base Scene	
+//? ~~	  Base Scene
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //--------------------------------------------------
@@ -25,11 +25,11 @@ kobengine::SceneObject& kobengine::Scene::AddEmpty(const std::string& sceneName)
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::Scene::Start() const
+void kobengine::Scene::Initialize() const
 {
 	for (auto& object : m_vObjects)
 	{
-		object->Start();
+		object->Initialize();
 	}
 }
 void kobengine::Scene::Update()
@@ -94,9 +94,9 @@ void kobengine::Scene::CleanupDeletedObjects()
 void kobengine::Scene::AddPendingObjects()
 {
 	// separate for loops to ensure that all objects in m_vPendingObjects are in a valid state, since it's possible to query
-	// m_vPendingObjects in the start function of SceneObjects (e.g. asking for all SO with tag or name).
+	// m_vPendingObjects in the Initialize function of SceneObjects (e.g. asking for all SO with tag or name).
 	for (const auto& object : m_vPendingObjects)
-		object->Start();
+		object->Initialize();
 	for (auto& object : m_vPendingObjects)
 		m_vObjects.push_back(std::move(object));
 	m_vPendingObjects.clear();

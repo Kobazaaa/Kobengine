@@ -32,7 +32,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Loop
 		//--------------------------------------------------
-		void Start() override;
+		void Initialize() override;
 		void Update() override;
 
 		//--------------------------------------------------

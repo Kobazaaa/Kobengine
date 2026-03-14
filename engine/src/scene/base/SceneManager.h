@@ -32,7 +32,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Loop
 		//--------------------------------------------------
-		void Start() const;
+		void Initialize() const;
 		void Update() const;
 
 	private:

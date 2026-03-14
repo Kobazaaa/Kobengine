@@ -16,7 +16,7 @@ namespace kobengine
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  Component	
+	//? ~~	  Component
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class Component
 	{
@@ -35,7 +35,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Loop
 		//--------------------------------------------------
-		virtual void Start() {}
+		virtual void Initialize() {}
 		virtual void Update() {}
 
 		//--------------------------------------------------

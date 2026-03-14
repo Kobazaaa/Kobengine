@@ -8,7 +8,7 @@
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  Timer	
+	//? ~~	  Timer
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class Timer final
 	{

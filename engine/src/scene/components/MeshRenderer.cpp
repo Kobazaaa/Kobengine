@@ -27,6 +27,6 @@ kobengine::MeshRenderer::~MeshRenderer()
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::MeshRenderer::Start()
+void kobengine::MeshRenderer::Initialize()
 {
 }

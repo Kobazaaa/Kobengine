@@ -31,7 +31,7 @@ kobengine::Camera::Camera(SceneObject& parent, const CameraSettings& settings, b
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::Camera::Start()
+void kobengine::Camera::Initialize()
 {}
 void kobengine::Camera::Update()
 {}

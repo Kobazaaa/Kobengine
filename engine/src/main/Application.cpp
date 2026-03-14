@@ -118,7 +118,7 @@ kobengine::Application::Application(const pompeii::WindowSettings& windowSetting
 //--------------------------------------------------
 void kobengine::Application::Run()
 {
-	ServiceLocator::Get<SceneManager>().Start();
+	ServiceLocator::Get<SceneManager>().Initialize();
 	Timer::Start();
 
 	while (!m_pWindow->ShouldClose())

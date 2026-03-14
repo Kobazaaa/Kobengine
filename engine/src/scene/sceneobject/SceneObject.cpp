@@ -15,11 +15,11 @@ kobengine::SceneObject::SceneObject(Scene& scene, std::string name)
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::SceneObject::Start() const
+void kobengine::SceneObject::Initialize() const
 {
 	for (const auto& component : m_vComponents)
 		if (component->isActive)
-			component->Start();
+			component->Initialize();
 }
 void kobengine::SceneObject::Update() const
 {

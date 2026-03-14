@@ -22,6 +22,6 @@ kobengine::MeshFilter::~MeshFilter()
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::MeshFilter::Start()
+void kobengine::MeshFilter::Initialize()
 {
 }

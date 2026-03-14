@@ -43,7 +43,7 @@ kobengine::Scene& kobengine::SceneManager::GetActiveScene() const { return *m_pA
 void kobengine::SceneManager::SetActiveScene(Scene& scene)
 {
 	m_pActiveScene = &scene;
-	Start();
+	Initialize();
 }
 void kobengine::SceneManager::SetActiveScene(const std::string& name) { if (const auto pScene = GetScene(name)) SetActiveScene(*pScene); }
 
@@ -51,5 +51,5 @@ void kobengine::SceneManager::SetActiveScene(const std::string& name) { if (cons
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::SceneManager::Start()		const { m_pActiveScene->Start(); }
+void kobengine::SceneManager::Initialize()		const { m_pActiveScene->Initialize(); }
 void kobengine::SceneManager::Update()		const { m_pActiveScene->Update(); }

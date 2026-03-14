@@ -33,7 +33,7 @@ kobengine::LightComponent::~LightComponent()
 //--------------------------------------------------
 //    Loop
 //--------------------------------------------------
-void kobengine::LightComponent::Start()
+void kobengine::LightComponent::Initialize()
 {
 	ServiceLocator::Get<LightingSystem>().UpdateLight(*this);
 }
