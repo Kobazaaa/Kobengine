@@ -46,7 +46,7 @@ namespace kobengine
 			requires std::derived_from<ComponentType, Component>
 		[[nodiscard]] bool HasComponent() const
 		{
-			return std::ranges::any_of(m_vComponents, [](const auto& component) 
+			return std::ranges::any_of(m_vComponents, [](const auto& component)
 					{ return dynamic_cast<ComponentType*>(component.get()); });
 		}
 		template <typename ComponentType>
@@ -83,7 +83,7 @@ namespace kobengine
 		//    Data
 		//--------------------------------------------------
 		std::string name{ "SceneObject" };
-		std::unique_ptr<Transform> transform = std::make_unique<Transform>(this);	
+		std::unique_ptr<Transform> transform = std::make_unique<Transform>(this);
 		Scene& GetScene() const;
 
 		//--------------------------------------------------

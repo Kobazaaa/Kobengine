@@ -23,6 +23,8 @@ void kobengine::SceneObject::Start() const
 }
 void kobengine::SceneObject::Update() const
 {
+	if (!m_IsActive) return;
+
 	for (const auto& component : m_vComponents)
 		if (component->isActive)
 			component->Update();
