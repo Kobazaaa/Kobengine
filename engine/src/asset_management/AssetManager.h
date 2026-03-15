@@ -7,13 +7,13 @@
 #include <string>
 
 // -- Kobengine Includes --
-#include "Mesh.h" 
+#include "Mesh.h"
 #include "Renderer.h"
 
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  Asset Manager	
+	//? ~~	  Asset Manager
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class AssetManager final
 	{

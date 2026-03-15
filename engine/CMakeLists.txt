@@ -7,6 +7,9 @@ set(SOURCES
 	"${SOURCE_DIR}/main/main.cpp"
 	"${SOURCE_DIR}/main/Application.cpp"
 
+	# asset_management
+	"${SOURCE_DIR}/asset_management/AssetManager.cpp"
+
 	# helper
 	"${SOURCE_DIR}/helper/Debug.cpp"
 	"${SOURCE_DIR}/helper/Timer.cpp"
@@ -19,14 +22,11 @@ set(SOURCES
 	"${SOURCE_DIR}/layers/LayerStack.cpp"
 	"${SOURCE_DIR}/layers/RenderLayer.cpp"
 
-	# managers
-	"${SOURCE_DIR}/managers/AssetManager.cpp"
-
 	# platform
 	 # platform/GLFW
 	"${SOURCE_DIR}/platform/GLFW/WindowGLFW.cpp"
 	"${SOURCE_DIR}/platform/GLFW/InputHandlerGLFW.cpp"
-	
+
 	# scene
 	"${SOURCE_DIR}/scene/Scene.cpp"
 	 # scene/base
@@ -52,12 +52,12 @@ add_library(${PROJECT_NAME} STATIC ${SOURCES})
 # Set include directories
 target_include_directories(${PROJECT_NAME} PUBLIC
 	"${SOURCE_DIR}"
+	"${SOURCE_DIR}/asset_management"
 	"${SOURCE_DIR}/events"
 	"${SOURCE_DIR}/helper"
 	"${SOURCE_DIR}/input"
 	"${SOURCE_DIR}/layers"
 	"${SOURCE_DIR}/main"
-	"${SOURCE_DIR}/managers"
 	"${SOURCE_DIR}/platform"
 	"${SOURCE_DIR}/platform/GLFW"
 	"${SOURCE_DIR}/scene"
