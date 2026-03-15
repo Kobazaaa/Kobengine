@@ -9,6 +9,7 @@ set(SOURCES
 
 	# asset_management
 	"${SOURCE_DIR}/asset_management/AssetManager.cpp"
+	"${SOURCE_DIR}/asset_management/AssetHandle.cpp"
 
 	# helper
 	"${SOURCE_DIR}/helper/Debug.cpp"
