@@ -39,9 +39,9 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Functionality
 		//--------------------------------------------------
-		template<typename AssetType>
+		template<typename AssetType, typename... Args>
 			requires std::derived_from<AssetType, Asset>
-		AssetHandle<AssetType> LoadAsset(const std::string& assetID)
+		AssetHandle<AssetType> LoadAsset(const std::string& assetID, Args&&... args)
 		{
 			const auto typeIndex = std::type_index(typeid(AssetType));
 			auto& allAssetsOfType = m_vAssets[typeIndex];
@@ -54,7 +54,7 @@ namespace kobengine
 			}
 
 			// asset doesn't exist yet
-			auto asset = std::make_unique<AssetType>(assetID);
+			auto asset = std::make_unique<AssetType>(assetID, std::forward<Args>(args)...);
 			if (!asset->Load())
 			{
 				// loading failed! Return invalid asset handle and let user handle it

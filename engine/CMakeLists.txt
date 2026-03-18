@@ -8,7 +8,8 @@ set(SOURCES
 	"${SOURCE_DIR}/main/Application.cpp"
 
 	# asset_management
-	"${SOURCE_DIR}/asset_management/AssetManager.cpp"
+	"${SOURCE_DIR}/asset_management/builtin_assets/Mesh.cpp"
+	"${SOURCE_DIR}/asset_management/AssetHandle.cpp"
 	"${SOURCE_DIR}/asset_management/AssetHandle.cpp"
 
 	# helper
@@ -54,6 +55,7 @@ add_library(${PROJECT_NAME} STATIC ${SOURCES})
 target_include_directories(${PROJECT_NAME} PUBLIC
 	"${SOURCE_DIR}"
 	"${SOURCE_DIR}/asset_management"
+	"${SOURCE_DIR}/asset_management/builtin_assets"
 	"${SOURCE_DIR}/events"
 	"${SOURCE_DIR}/helper"
 	"${SOURCE_DIR}/input"
