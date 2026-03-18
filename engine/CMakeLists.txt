@@ -9,7 +9,6 @@ set(SOURCES
 
 	# asset_management
 	"${SOURCE_DIR}/asset_management/builtin_assets/Mesh.cpp"
-	"${SOURCE_DIR}/asset_management/AssetHandle.cpp"
 	"${SOURCE_DIR}/asset_management/AssetManager.cpp"
 
 	# helper
