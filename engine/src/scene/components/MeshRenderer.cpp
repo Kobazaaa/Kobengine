@@ -5,7 +5,7 @@
 #include "Scene.h"
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//? ~~	  Model	
+//? ~~	  Model
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //--------------------------------------------------
@@ -13,10 +13,9 @@
 //--------------------------------------------------
 kobengine::MeshRenderer::MeshRenderer(SceneObject& sceneObj, MeshFilter& filter)
 	: Component(sceneObj, "MeshRenderer")
+	, pMeshFilter(&filter)
 {
-	pMeshFilter = &filter;
 	ServiceLocator::Get<RenderSystem>().RegisterMeshRenderer(*this);
-	GetSceneObject().GetScene().GrowAABB(pMeshFilter->pMesh->aabb);
 }
 kobengine::MeshRenderer::~MeshRenderer()
 {
