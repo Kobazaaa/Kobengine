@@ -1,10 +1,10 @@
 // -- Kobengine Includes --
 #include "MeshFilter.h"
 #include "AssetManager.h"
-#include "ServiceLocator.h"
+#include "Mesh.h"
 
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-//? ~~	  MeshFilter	
+//? ~~	  MeshFilter
 //? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 //--------------------------------------------------
@@ -15,7 +15,7 @@ kobengine::MeshFilter::MeshFilter(SceneObject& sceneObj)
 {}
 kobengine::MeshFilter::~MeshFilter()
 {
-	ServiceLocator::Get<AssetManager>().UnloadMesh(pMesh);
+	if (pMesh) pMesh->Get()->Unload();
 }
 
 
