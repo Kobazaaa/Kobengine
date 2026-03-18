@@ -47,7 +47,6 @@ kobengine::Application::Application(const pompeii::WindowSettings& windowSetting
 	auto renderer = m_pRenderLayer->GetRenderer();
 	ServiceLocator::Get<LightingSystem>().SetRenderer(renderer);
 	ServiceLocator::Get<RenderSystem>().SetRenderer(renderer);
-	ServiceLocator::Get<AssetManager>().SetRenderer(renderer);
 	//m_pRenderer->InsertUI([]
 	//	{
 	//		ServiceLocator::Get<Editor>().Draw();
@@ -64,8 +63,8 @@ kobengine::Application::Application(const pompeii::WindowSettings& windowSetting
 	// model
 	auto& model = scene.AddEmpty("Model");
 	auto filter = model.AddComponent<MeshFilter>();
-	pompeii::Mesh* pMesh = ServiceLocator::Get<AssetManager>().LoadMesh("models/Sponza.gltf");
-	filter->pMesh = pMesh;
+	auto meshHandle = ServiceLocator::Get<AssetManager>().LoadAsset<Mesh>("models/Sponza.gltf");
+	filter->pMesh = meshHandle;
 	model.AddComponent<MeshRenderer>(*filter);
 
 	InputManager::RegisterCommand(KeyCode::LSHIFT, TriggerState::Press, [cameraComp]	{ cameraComp->Speed *= 4.f; });
@@ -136,12 +135,12 @@ void kobengine::Application::RunOneFrame()
 	// --- Begin Frame Phase ---
 	ServiceLocator::Get<LightingSystem>().BeginFrame();
 	ServiceLocator::Get<RenderSystem>().BeginFrame();
-	
+
 	// -- Update Phase --
 	ServiceLocator::Get<SceneManager>().Update();
 	ServiceLocator::Get<LightingSystem>().Update();
 	ServiceLocator::Get<RenderSystem>().Update();
-	
+
 	// -- Render Phase --
 	m_pLayerStack->BeginAllLayers();
 	m_pLayerStack->UpdateAllLayers();
@@ -159,7 +158,7 @@ void kobengine::Application::Shutdown()
 {
 	m_pRenderLayer->GetRenderer()->GetContext().device.WaitIdle();
 	ServiceLocator::Deregister<SceneManager>();
-	ServiceLocator::Get<AssetManager>().UnloadAll();
+	ServiceLocator::Get<AssetManager>().UnloadAllAssets();
 	ServiceLocator::Deregister<AssetManager>();
 	ServiceLocator::Deregister<LightingSystem>();
 	ServiceLocator::Deregister<RenderSystem>();
