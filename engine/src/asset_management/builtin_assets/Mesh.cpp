@@ -70,14 +70,14 @@ void kobengine::Mesh::ProcessNode(const aiNode* pNode, const aiScene* pScene, co
 	for (uint32_t index{}; index < pNode->mNumMeshes; ++index)
 	{
 		aiMesh* pMesh = pScene->mMeshes[pNode->mMeshes[index]];
-		ProcessMesh(pMesh, pScene, totalTransform);
+		ProcessMesh(pMesh, totalTransform);
 	}
 
 	for (uint32_t cIdx{}; cIdx < pNode->mNumChildren; ++cIdx)
 		ProcessNode(pNode->mChildren[cIdx], pScene, totalTransform);
 }
 
-void kobengine::Mesh::ProcessMesh(const aiMesh* pMesh, const aiScene* pScene, glm::mat4 transform)
+void kobengine::Mesh::ProcessMesh(const aiMesh* pMesh, glm::mat4 transform)
 {
 	auto& lastSubMesh = m_vSubMeshes.emplace_back();
 	lastSubMesh.name = pMesh->mName.C_Str();
