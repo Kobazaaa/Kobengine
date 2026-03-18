@@ -120,16 +120,17 @@ void kobengine::Mesh::ProcessMesh(const aiMesh* pMesh, glm::mat4 transform)
 
 		m_vVertices.push_back(vertex);
 
-		// -- Process Indices --
-		lastSubMesh.indexOffset = static_cast<uint32_t>(m_vIndices.size());
-		for (uint32_t fIdx{}; fIdx < pMesh->mNumFaces; ++fIdx)
-		{
-			aiFace face = pMesh->mFaces[fIdx];
-			for (uint32_t iIdx{}; iIdx < face.mNumIndices; ++iIdx)
-				m_vIndices.push_back(face.mIndices[iIdx]);
-		}
-		lastSubMesh.indexCount = static_cast<uint32_t>(m_vIndices.size()) - lastSubMesh.indexOffset;
 	}
+
+	// -- Process Indices --
+	lastSubMesh.indexOffset = static_cast<uint32_t>(m_vIndices.size());
+	for (uint32_t fIdx{}; fIdx < pMesh->mNumFaces; ++fIdx)
+	{
+		aiFace face = pMesh->mFaces[fIdx];
+		for (uint32_t iIdx{}; iIdx < face.mNumIndices; ++iIdx)
+			m_vIndices.push_back(face.mIndices[iIdx]);
+	}
+	lastSubMesh.indexCount = static_cast<uint32_t>(m_vIndices.size()) - lastSubMesh.indexOffset;
 }
 
 glm::mat4 kobengine::Mesh::ConvertAssimpMatrix(const aiMatrix4x4& mat)
