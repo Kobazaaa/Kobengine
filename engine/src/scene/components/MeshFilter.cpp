@@ -15,7 +15,7 @@ kobengine::MeshFilter::MeshFilter(SceneObject& sceneObj)
 {}
 kobengine::MeshFilter::~MeshFilter()
 {
-	if (pMesh) pMesh->Get()->Unload();
+	if (pMesh) pMesh.Get()->Unload();
 }
 
 

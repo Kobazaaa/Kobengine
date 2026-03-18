@@ -38,7 +38,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Data
 		//--------------------------------------------------
-		AssetHandle<Mesh>* pMesh{};
+		AssetHandle<Mesh> pMesh{};
 	};
 }
 
