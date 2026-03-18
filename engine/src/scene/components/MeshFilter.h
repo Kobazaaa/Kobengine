@@ -2,13 +2,19 @@
 #define MESH_FILTER_H
 
 // -- Kobengine Includes --
-#include "Mesh.h"
+#include "AssetHandle.h"
 #include "Component.h"
+
+// -- Forward Declarations --
+namespace kobengine
+{
+	class Mesh;
+}
 
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  MeshFilter	
+	//? ~~	  MeshFilter
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class MeshFilter final : public Component
 	{
@@ -32,7 +38,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Data
 		//--------------------------------------------------
-		pompeii::Mesh* pMesh{};
+		AssetHandle<Mesh>* pMesh{};
 	};
 }
 
