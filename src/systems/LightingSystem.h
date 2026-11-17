@@ -1,5 +1,5 @@
-#ifndef RENDER_SYSTEM_H
-#define RENDER_SYSTEM_H
+#ifndef LIGHTING_SYSTEM_H
+#define LIGHTING_SYSTEM_H
 
 // -- Standard Library --
 #include <vector>
@@ -12,29 +12,23 @@
 // -- Forward Declarations --
 namespace kobengine
 {
-	class MeshRenderer;
-	class Camera;
+	class LightComponent;
 }
 
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  Render System	
+	//? ~~	  Lighting System	
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	class RenderSystem final : public ISystem
+	class LightingSystem final : public ISystem
 	{
 	public:
 		//--------------------------------------------------
-		//    Models
+		//    Lights
 		//--------------------------------------------------
-		void RegisterMeshRenderer(MeshRenderer& model);
-		void UnregisterMeshRenderer(const MeshRenderer& model);
-
-		//--------------------------------------------------
-		//    Camera
-		//--------------------------------------------------
-		Camera* GetMainCamera() const;
-		void SetMainCamera(Camera& camera);
+		void RegisterLight(LightComponent& light);
+		void UnregisterLight(LightComponent& light);
+		void UpdateLight(LightComponent& light);
 
 		//--------------------------------------------------
 		//    Interface
@@ -46,19 +40,14 @@ namespace kobengine
 		void EndFrame() override;
 
 	private:
-		std::vector<MeshRenderer*> m_vPendingModels{};
-		std::vector<MeshRenderer*> m_vRegisteredModels{};
-		std::vector<MeshRenderer*> m_vVisibleModels{};
-		Camera* m_pMainCamera{};
+		std::vector<LightComponent*> m_vPendingLights{};
+		std::vector<LightComponent*> m_vRegisteredLights{};
 		std::shared_ptr<pompeii::Renderer> m_pRenderer{};
-		bool m_UpdateModels{};
 
 		//--------------------------------------------------
 		//    Helpers
 		//--------------------------------------------------
-		void FrustumCull();
 		void AddPendingObjects();
-		void UpdateData();
 	};
 }
 

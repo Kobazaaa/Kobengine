@@ -1,4 +1,4 @@
 [submodule "Pompeii"]
-	path = Pompeii
+	path = extern/pompeii
 	url = https://github.com/Kobazaaa/Pompeii
 	branch = Convert-To-Library

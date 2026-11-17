@@ -5,15 +5,16 @@
 #include <unordered_map>
 #include <memory>
 #include <string>
+#include <vector>
 
 // -- Kobengine Includes --
-#include "Mesh.h" 
+#include "Handle.h"
 #include "Renderer.h"
 
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  Asset Manager	
+	//? ~~	  Asset Manager
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class AssetManager final
 	{
@@ -27,14 +28,14 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Assets
 		//--------------------------------------------------
-		pompeii::Mesh* LoadMesh(const std::string& path);
-		pompeii::Mesh* GetMesh(const std::string& path);
-		void UnloadMesh(const pompeii::Mesh* pMesh);
+		pompeii::MeshHandle LoadMesh(const std::string& path);
+		pompeii::MeshHandle GetMesh(const std::string& path) const;
+		void UnloadMesh(pompeii::MeshHandle handle);
 		void UnloadAll();
-		std::vector<pompeii::Mesh*> GetAllMeshes() const;
+		std::vector<pompeii::MeshHandle> GetAllMeshes() const;
 
 	private:
-		std::unordered_map<std::string, std::unique_ptr<pompeii::Mesh>> m_vMeshRegistry{};
+		std::unordered_map<std::string, pompeii::MeshHandle> m_MeshRegistry{};
 		std::shared_ptr<pompeii::Renderer> m_pRenderer{};
 	};
 }

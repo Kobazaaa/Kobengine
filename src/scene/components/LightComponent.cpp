@@ -9,19 +9,13 @@
 //--------------------------------------------------
 kobengine::LightComponent::LightComponent(SceneObject& parent, const glm::vec3& dirPos, const glm::vec3& col, float luxLumen, pompeii::LightType type)
 	: Component(parent, "LightComponent")
-	, lightData
-	{
-		.dirPos = dirPos,
-		.type = type,
-		.color = col,
-		.luxLumen = luxLumen,
-		.viewMatrices = {},
-		.projMatrix = {}
-	}
+	, dirPos{ dirPos }
+	, color{ col }
+	, luxLumen{ luxLumen }
+	, type{ type }
 {
-	if (lightData.type == pompeii::LightType::Point)
-		GetTransform().SetPosition(lightData.dirPos);
-	lightData.CalculateLightMatrices(GetSceneObject().GetScene().GetAABB());
+	if (type == pompeii::LightType::Point)
+		GetTransform().SetPosition(dirPos);
 	ServiceLocator::Get<LightingSystem>().RegisterLight(*this);
 }
 kobengine::LightComponent::~LightComponent()
@@ -40,4 +34,3 @@ void kobengine::LightComponent::Initialize()
 void kobengine::LightComponent::Update()
 {
 }
-

@@ -8,6 +8,22 @@
 #include "Scene.h"
 #include "SceneObject.h"
 
+namespace
+{
+	pompeii::LightCreateInfo BuildCreateInfo(const kobengine::LightComponent& light)
+	{
+		return pompeii::LightCreateInfo
+		{
+			.type = light.type,
+			.dirPos = light.dirPos,
+			.color = light.color,
+			.luxLumen = light.luxLumen,
+			.shadowMapSize = 4096,
+			.sceneAABB = light.GetSceneObject().GetScene().GetAABB(),
+		};
+	}
+}
+
 //--------------------------------------------------
 //    Lights
 //--------------------------------------------------
@@ -19,40 +35,30 @@ void kobengine::LightingSystem::RegisterLight(LightComponent& light)
 	it = std::ranges::find(m_vPendingLights, &light);
 	if (it != m_vPendingLights.end())
 		return;
-	m_UpdateLights = true;
 
-	light.lightData.CalculateLightMatrices(light.GetSceneObject().GetScene().GetAABB());
-	light.lightData.CreateDepthImage(m_pRenderer->GetContext(), 4096);
+	light.lightHandle = m_pRenderer->CreateLight(BuildCreateInfo(light));
 
 	m_vPendingLights.emplace_back(&light);
 }
 void kobengine::LightingSystem::UnregisterLight(LightComponent& light)
 {
-	m_UpdateLights = true;
-
 	std::erase_if(m_vRegisteredLights, [&](const LightComponent* pLight)
 	{
 		if (pLight == &light)
-		{
-			m_pRenderer->GetContext().device.WaitIdle();
-			light.lightData.DestroyDepthMap(m_pRenderer->GetContext());
-		}
+			m_pRenderer->DestroyLight(light.lightHandle);
 		return pLight == &light;
 	});
 	std::erase_if(m_vPendingLights, [&](const LightComponent* pLight)
 	{
 		if (pLight == &light)
-		{
-			m_pRenderer->GetContext().device.WaitIdle();
-			light.lightData.DestroyDepthMap(m_pRenderer->GetContext());
-		}
+			m_pRenderer->DestroyLight(light.lightHandle);
 		return pLight == &light;
 	});
 }
 
-void kobengine::LightingSystem::UpdateLight(LightComponent&)
+void kobengine::LightingSystem::UpdateLight(LightComponent& light)
 {
-	m_UpdateLights = true;
+	m_pRenderer->UpdateLight(light.lightHandle, BuildCreateInfo(light));
 }
 
 //--------------------------------------------------
@@ -64,10 +70,9 @@ void kobengine::LightingSystem::Update()
 	{
 		m_pRenderer->SubmitLightItem(pompeii::LightItem
 			{
-				.light = &l->lightData
+				.light = l->lightHandle
 			});
 	}
-	UpdateData();
 }
 void kobengine::LightingSystem::BeginFrame()
 {
@@ -98,18 +103,5 @@ void kobengine::LightingSystem::AddPendingObjects()
 		for (auto& pendingLight : m_vPendingLights)
 			m_vRegisteredLights.emplace_back(pendingLight);
 		m_vPendingLights.clear();
-	}
-}
-void kobengine::LightingSystem::UpdateData()
-{
-	if (m_UpdateLights)
-	{
-		m_UpdateLights = false;
-
-		std::vector<pompeii::Light*> newLights{};
-		newLights.reserve(m_vRegisteredLights.size());
-		for (auto& registeredLight : m_vRegisteredLights)
-			newLights.push_back(&registeredLight->lightData);
-		m_pRenderer->UpdateLights(newLights);
 	}
 }

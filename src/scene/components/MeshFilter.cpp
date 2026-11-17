@@ -15,7 +15,7 @@ kobengine::MeshFilter::MeshFilter(SceneObject& sceneObj)
 {}
 kobengine::MeshFilter::~MeshFilter()
 {
-	ServiceLocator::Get<AssetManager>().UnloadMesh(pMesh);
+	ServiceLocator::Get<AssetManager>().UnloadMesh(meshHandle);
 }
 
 

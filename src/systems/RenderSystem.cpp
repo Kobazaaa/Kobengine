@@ -19,7 +19,6 @@ void kobengine::RenderSystem::RegisterMeshRenderer(MeshRenderer& model)
 		return;
 
 	m_vPendingModels.emplace_back(&model);
-	m_UpdateModels = true;
 }
 void kobengine::RenderSystem::UnregisterMeshRenderer(const MeshRenderer& model)
 {
@@ -35,7 +34,6 @@ void kobengine::RenderSystem::UnregisterMeshRenderer(const MeshRenderer& model)
 	{
 		return pModel == &model;
 	});
-	m_UpdateModels = true;
 }
 
 
@@ -61,7 +59,7 @@ void kobengine::RenderSystem::Update()
 		if (visibleModel->pMeshFilter)
 			m_pRenderer->SubmitRenderItem(pompeii::RenderItem
 				{
-					.mesh = visibleModel->pMeshFilter->pMesh,
+					.mesh = visibleModel->pMeshFilter->meshHandle,
 					.transform = visibleModel->GetTransform().GetMatrix()
 				});
 	}
@@ -72,7 +70,6 @@ void kobengine::RenderSystem::Update()
 			.autoExposureSettings = m_pMainCamera->AutoExposureSettings,
 			.autoExposure = m_pMainCamera->UseAutoExposure,
 		});
-	UpdateData();
 }
 void kobengine::RenderSystem::BeginFrame()
 {
@@ -110,19 +107,5 @@ void kobengine::RenderSystem::AddPendingObjects()
 		for (auto& pendingModel : m_vPendingModels)
 			m_vRegisteredModels.emplace_back(pendingModel);
 		m_vPendingModels.clear();
-	}
-}
-void kobengine::RenderSystem::UpdateData()
-{
-	if (m_UpdateModels)
-	{
-		m_UpdateModels = false;
-
-		std::vector<pompeii::Image*> newTextures{};
-		for (const auto& registeredModel : m_vRegisteredModels)
-			if (registeredModel->pMeshFilter)
-				for (auto& image : registeredModel->pMeshFilter->pMesh->images)
-					newTextures.push_back(&image);
-		m_pRenderer->UpdateTextures(newTextures);
 	}
 }

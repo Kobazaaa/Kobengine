@@ -37,15 +37,3 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(GLFW GLM stb assimp)
-
-# Link libraries to the project
-target_link_libraries(${PROJECT_NAME} PUBLIC
-    glfw
-    glm::glm
-    assimp
-)
-
-target_include_directories(${PROJECT_NAME} PUBLIC
-    ${stb_SOURCE_DIR}
-    ${assimp_SOURCE_DIR}/include
-)

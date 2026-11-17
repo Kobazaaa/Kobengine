@@ -64,8 +64,7 @@ kobengine::Application::Application(const pompeii::WindowSettings& windowSetting
 	// model
 	auto& model = scene.AddEmpty("Model");
 	auto filter = model.AddComponent<MeshFilter>();
-	pompeii::Mesh* pMesh = ServiceLocator::Get<AssetManager>().LoadMesh("models/Sponza.gltf");
-	filter->pMesh = pMesh;
+	filter->meshHandle = ServiceLocator::Get<AssetManager>().LoadMesh("models/Sponza.gltf");
 	model.AddComponent<MeshRenderer>(*filter);
 
 	InputManager::RegisterCommand(KeyCode::LSHIFT, TriggerState::Press, [cameraComp]	{ cameraComp->Speed *= 4.f; });

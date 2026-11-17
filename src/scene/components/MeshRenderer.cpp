@@ -16,7 +16,8 @@ kobengine::MeshRenderer::MeshRenderer(SceneObject& sceneObj, MeshFilter& filter)
 {
 	pMeshFilter = &filter;
 	ServiceLocator::Get<RenderSystem>().RegisterMeshRenderer(*this);
-	GetSceneObject().GetScene().GrowAABB(pMeshFilter->pMesh->aabb);
+	if (const pompeii::Mesh* pMesh = ServiceLocator::Get<RenderSystem>().GetRenderer()->TryGetMesh(pMeshFilter->meshHandle))
+		GetSceneObject().GetScene().GrowAABB(pMesh->aabb);
 }
 kobengine::MeshRenderer::~MeshRenderer()
 {

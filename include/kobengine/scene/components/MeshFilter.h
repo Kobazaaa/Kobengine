@@ -2,7 +2,7 @@
 #define MESH_FILTER_H
 
 // -- Kobengine Includes --
-#include "Mesh.h"
+#include "Handle.h"
 #include "Component.h"
 
 namespace kobengine
@@ -32,7 +32,7 @@ namespace kobengine
 		//--------------------------------------------------
 		//    Data
 		//--------------------------------------------------
-		pompeii::Mesh* pMesh{};
+		pompeii::MeshHandle meshHandle{};
 	};
 }
 

@@ -6,18 +6,13 @@
 
 // -- Kobengine Includes --
 #include "Component.h"
+#include "Handle.h"
 #include "Light.h"
-
-// -- Forward Declarations --
-namespace pompeii
-{
-	struct AABB;
-}
 
 namespace kobengine
 {
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-	//? ~~	  Light Component	
+	//? ~~	  Light Component
 	//? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	class LightComponent final : public Component
 	{
@@ -41,9 +36,16 @@ namespace kobengine
 		void Update() override;
 
 		//--------------------------------------------------
-		//    Accessors & Mutators
+		//    Data
 		//--------------------------------------------------
-		pompeii::Light lightData{};
+		// CPU-side params; the engine never touches GPU shadow-map resources directly -
+		// those live behind pompeii::Renderer::CreateLight/UpdateLight/DestroyLight.
+		glm::vec3 dirPos{};
+		glm::vec3 color{};
+		float luxLumen{};
+		pompeii::LightType type{};
+
+		pompeii::LightHandle lightHandle{};
 	};
 }
 
